@@ -1,0 +1,21 @@
+/*
+ * Scroll-reveal states. Both classes carry the transition so it survives the
+ * hidden -> shown swap; `shown` is stripped once the animation finishes so the
+ * element's own transitions (card hovers, etc.) are handed back untouched.
+ */
+
+.hidden {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.9s var(--ease-out-expo),
+    transform 0.9s var(--ease-out-expo);
+}
+
+.shown {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.9s var(--ease-out-expo),
+    transform 0.9s var(--ease-out-expo);
+}

@@ -1,0 +1,158 @@
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(12px, 2vw, 24px);
+  flex-wrap: wrap;
+  padding: 14px var(--gutter-nav);
+  background: var(--nav-bg);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line-dark-soft);
+}
+
+.wordmark {
+  flex: none;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(19px, 5vw, 22px);
+  color: var(--c-cream);
+  letter-spacing: 0.01em;
+}
+
+.wordmark:hover {
+  color: var(--c-cream);
+}
+
+/* ---- Desktop rail (>= 900px) -------------------------------------- */
+
+.desktop {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(14px, 2.6vw, 32px);
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.link {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--c-sage-muted);
+  text-transform: uppercase;
+}
+
+.link:hover {
+  color: var(--c-cream);
+}
+
+.cta {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-ink);
+  background: var(--c-gold);
+  padding: 11px 22px;
+  border-radius: 2px;
+}
+
+.cta:hover {
+  background: var(--c-gold-light);
+  color: var(--c-ink);
+}
+
+/* ---- Mobile rail (< 900px) ---------------------------------------- */
+
+.mobile {
+  flex: 1 1 auto;
+  display: none;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.ctaCompact {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-ink);
+  background: var(--c-gold);
+  padding: 12px 18px;
+  border-radius: 2px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.ctaCompact:hover {
+  background: var(--c-gold-light);
+  color: var(--c-ink);
+}
+
+.burger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0 12px;
+  background: transparent;
+  border: 1px solid var(--line-dark-button);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.burger span {
+  display: block;
+  height: 1.5px;
+  background: var(--c-cream);
+}
+
+/* ---- Drawer -------------------------------------------------------- */
+
+.drawer {
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line-dark);
+  margin-top: 12px;
+  padding-top: 6px;
+}
+
+.drawerLink {
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: var(--c-sage);
+  text-transform: uppercase;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(237, 232, 221, 0.07);
+}
+
+.drawerLink:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 899px) {
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: flex;
+  }
+}
+
+@media (min-width: 900px) {
+  /* The drawer belongs to the compact rail only. */
+  .drawer {
+    display: none;
+  }
+}

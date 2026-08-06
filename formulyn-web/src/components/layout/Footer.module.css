@@ -1,0 +1,94 @@
+.footer {
+  background: var(--c-ink-deep);
+  border-top: 1px solid var(--line-dark-soft);
+  padding: clamp(56px, 7vw, 88px) var(--gutter) 40px;
+}
+
+.grid {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: clamp(36px, 5vw, 72px);
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 18px;
+}
+
+.blurb {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--c-sage-muted);
+  max-width: 340px;
+  margin: 0 0 22px;
+  text-wrap: pretty;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line-gold);
+  border-radius: 2px;
+  padding: 8px 14px;
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-gold);
+  animation: fPulse 2.4s ease-in-out infinite;
+}
+
+.statusLabel {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-gold);
+}
+
+.columnTitle {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--c-sage-dim);
+  margin: 0 0 20px;
+}
+
+.columnList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.columnLink {
+  font-size: 14px;
+  color: var(--c-sage);
+}
+
+.columnLink:hover {
+  color: var(--c-gold-light);
+}
+
+.columnText {
+  font-size: 14px;
+  color: var(--c-sage);
+}
+
+.goldLink {
+  font-size: 14px;
+}
+
+.legal {
+  max-width: var(--page-max);
+  margin: 48px auto 0;
+  border-top: 1px solid var(--line-dark-faint);
+  padding-top: 24px;
+  font-size: 12px;
+  color: var(--c-sage-dim);
+}

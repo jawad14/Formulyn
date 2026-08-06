@@ -1,0 +1,71 @@
+.section {
+  background: var(--c-bone);
+  color: var(--c-graphite);
+  padding: clamp(72px, 9vw, 128px) var(--gutter);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: clamp(20px, 2.5vw, 32px);
+}
+
+.card {
+  border: 1px solid var(--line-light);
+  border-radius: 2px;
+  padding: 36px 30px;
+  background: var(--c-bone);
+  transition:
+    border-color 0.3s,
+    transform 0.3s;
+}
+
+.card:hover {
+  border-color: var(--c-gold);
+  transform: translateY(-4px);
+}
+
+.label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--c-gold);
+  margin: 0 0 20px;
+}
+
+.quote {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 24px;
+  margin: 0 0 14px;
+  line-height: 1.25;
+}
+
+.problem {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: var(--c-slate);
+  margin: 0 0 22px;
+  text-wrap: pretty;
+}
+
+.response {
+  border-top: 1px solid var(--line-light-soft);
+  padding-top: 18px;
+}
+
+.responseLabel {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--c-bronze);
+  margin: 0 0 10px;
+}
+
+.responseBody {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: var(--c-graphite);
+  margin: 0;
+  text-wrap: pretty;
+}

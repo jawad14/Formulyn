@@ -1,0 +1,80 @@
+@import "./tokens.css";
+@import "./keyframes.css";
+
+/*
+ * NOTE: deliberately no global `box-sizing: border-box` reset.
+ * The approved design was authored against the browser default
+ * (content-box) and several elements — the aspect-ratio thumbnails and the
+ * menu button among them — size differently under border-box. Set
+ * box-sizing per component if you need it.
+ */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--c-ink);
+  color: var(--c-cream);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--c-gold);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--c-gold-light);
+}
+
+img {
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--c-gold);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Shared layout primitives                                            */
+/* ------------------------------------------------------------------ */
+
+/* Centred content column used by every section. */
+.shell {
+  max-width: var(--page-max);
+  margin: 0 auto;
+}
+
+/* Screen-reader-only text. */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

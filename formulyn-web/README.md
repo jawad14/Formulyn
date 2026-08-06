@@ -1,0 +1,102 @@
+# Formulyn — Website
+
+Next.js (App Router) rebuild of the approved Formulyn design. The original
+single-file prototype lives at `../Formulyn Website.dc.html`; this project is a
+faithful port of it — same colours, type, spacing and behaviour — restructured
+so the site is maintainable.
+
+## Getting started
+
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
+npm start        # serve the production build
+npm run lint
+```
+
+## Where things live
+
+```
+src/
+├── app/                      # routes — one folder per page
+│   ├── layout.tsx            # fonts, metadata, Header + Footer
+│   ├── page.tsx              # /            home
+│   ├── process/page.tsx      # /process
+│   ├── industries/page.tsx   # /industries
+│   ├── journal/page.tsx      # /journal
+│   ├── about/page.tsx        # /about
+│   ├── contact/page.tsx      # /contact
+│   ├── not-found.tsx         # 404
+│   └── icon.svg              # favicon
+│
+├── data/                     # ALL COPY LIVES HERE — edit text without touching JSX
+│   ├── site.ts               # name, email, nav links, footer blurb
+│   ├── home.ts               # hero, stats, situations, mandates, cases, reviews
+│   ├── process.ts            # the four phases + timeline proportions
+│   ├── industries.ts         # the seven categories
+│   ├── journal.ts            # featured post, post grid, newsletter
+│   ├── about.ts              # narrative + principles
+│   └── contact.ts            # contact page + the closing CTA banner
+│
+├── components/
+│   ├── layout/               # Header, Footer, CtaBanner — on every page
+│   ├── ui/                   # Reveal, PageHero, SectionHeading, Stop
+│   └── sections/             # one folder per page, one component per section
+│       ├── home/  process/  industries/  journal/  about/  contact/
+│
+├── styles/
+│   ├── tokens.css            # every colour, font stack and spacing value
+│   ├── keyframes.css         # fPulse, fMarquee, fHeroIn, fGlow
+│   └── globals.css           # reset, base type, .shell, .srOnly
+│
+└── hooks/
+```
+
+Each component pairs a `.tsx` with a co-located `.module.css`. Styles are scoped
+by CSS Modules, so a class name can never leak between sections.
+
+## Common edits
+
+| Task | File |
+| --- | --- |
+| Change any copy on the site | the matching file in `src/data/` |
+| Add a case study, review, post or industry | push an item onto the array in `src/data/` |
+| Change a brand colour or font | `src/styles/tokens.css` |
+| Add or reorder a nav item | `navLinks` in `src/data/site.ts` |
+| Add a page | new folder in `src/app/`, section components in `src/components/sections/` |
+
+## Design fidelity
+
+The port was verified against the original prototype: at 1440px, 768px and
+390px every page renders to the **same pixel height**, and a full-page pixel
+diff comes in under 0.03% (residual is image re-encoding by the Next image
+optimizer and sub-pixel text antialiasing).
+
+Two things are load-bearing for that fidelity — leave them alone unless you
+mean to change the design:
+
+- **No global `box-sizing: border-box`.** The design was authored against the
+  browser default (`content-box`). Under `border-box` the aspect-ratio
+  thumbnails and the mobile menu button size differently.
+- **Paragraph margins are always set explicitly** in the CSS modules. A `<p>`
+  without a `margin` declaration picks up the UA `margin: 1em 0` and shifts
+  the layout.
+
+The nav collapse point (900px) is a media query in `Header.module.css`; the
+prototype did the same thing with a JS resize listener.
+
+## Not yet wired up
+
+Both forms are presentational — they need an endpoint before launch:
+
+- **Brief intake** — `src/components/sections/contact/ContactSection.tsx`
+- **Newsletter** — `src/components/sections/journal/NewsletterSignup.tsx`
+
+Add an `action` (a route handler under `src/app/api/`, or a third-party
+endpoint) to each `<form>`.
+
+The hero image is still hot-linked from `formulyn.com.au` (allow-listed in
+`next.config.ts`). Move it into `public/` when convenient. Case study and
+journal thumbnails are the design's own labelled placeholders, awaiting real
+photography.

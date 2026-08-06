@@ -1,0 +1,36 @@
+import { situations, situationsSection } from "@/data/home";
+import { Reveal } from "@/components/ui/Reveal";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import styles from "./SituationsSection.module.css";
+
+export function SituationsSection() {
+  return (
+    <section className={styles.section}>
+      <div className="shell">
+        <SectionHeading
+          tone="light"
+          eyebrow={situationsSection.eyebrow}
+          heading={situationsSection.heading}
+          intro={situationsSection.intro}
+          headingMax="640px"
+          introMax="380px"
+          gap="clamp(36px, 4.5vw, 64px)"
+        />
+
+        <div className={styles.grid}>
+          {situations.map((situation) => (
+            <Reveal key={situation.quote} className={styles.card}>
+              <p className={styles.label}>The situation</p>
+              <h3 className={styles.quote}>{situation.quote}</h3>
+              <p className={styles.problem}>{situation.problem}</p>
+              <div className={styles.response}>
+                <p className={styles.responseLabel}>What we do</p>
+                <p className={styles.responseBody}>{situation.response}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

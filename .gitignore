@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Editors
+.idea/
+*.swp
+
+# Node (the Next.js app also carries its own .gitignore)
+node_modules/
+
+# Local Claude Code tool permissions.
+# Remove this line if you want to share them with the team.
+.claude/

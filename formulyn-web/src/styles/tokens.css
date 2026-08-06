@@ -1,0 +1,72 @@
+/**
+ * Formulyn design tokens.
+ *
+ * Every value here is lifted verbatim from the approved design.
+ * Change a token to change the whole site; do not hard-code these
+ * values in component stylesheets.
+ */
+
+:root {
+  /* ---- Surfaces ---------------------------------------------------- */
+  --c-ink: #0d1310; /* primary dark canvas */
+  --c-ink-deep: #0a0f0c; /* footer */
+  --c-ink-solid: #171d19; /* dark blocks sitting on light sections */
+  --c-bone: #f2ede3; /* primary light canvas */
+  --c-bone-shade: #ede6d8; /* light hover / image placeholders */
+
+  /* ---- Type on dark ------------------------------------------------ */
+  --c-cream: #ede8dc;
+  --c-sage: #b9c0b4;
+  --c-sage-muted: #9aa396;
+  --c-sage-dim: #6e7a6e;
+
+  /* ---- Type on light ----------------------------------------------- */
+  --c-graphite: #171d19;
+  --c-graphite-soft: #454d45;
+  --c-slate: #5c645c;
+  --c-bronze: #8c7a55;
+
+  /* ---- Accent ------------------------------------------------------ */
+  --c-gold: #c9963f;
+  --c-gold-light: #e0b25e;
+  --c-gold-mid: #d5b071; /* process timeline */
+  --c-gold-pale: #e0c89a; /* process timeline */
+
+  /* ---- Hairlines & washes ------------------------------------------ */
+  --line-dark: rgba(237, 232, 221, 0.1);
+  --line-dark-soft: rgba(237, 232, 221, 0.08);
+  --line-dark-faint: rgba(237, 232, 221, 0.06);
+  --line-dark-strong: rgba(237, 232, 221, 0.14);
+  --line-dark-input: rgba(237, 232, 221, 0.2);
+  --line-dark-button: rgba(237, 232, 221, 0.22);
+  --line-dark-nav: rgba(237, 232, 221, 0.25);
+  --line-light: rgba(23, 29, 25, 0.16);
+  --line-light-soft: rgba(23, 29, 25, 0.12);
+  --line-light-input: rgba(23, 29, 25, 0.28);
+  --line-gold: rgba(201, 150, 63, 0.35);
+  --line-gold-strong: rgba(201, 150, 63, 0.4);
+  --wash-cream: rgba(237, 232, 221, 0.05);
+  --wash-cream-faint: rgba(237, 232, 221, 0.03);
+  --nav-bg: rgba(13, 19, 16, 0.86);
+
+  /* ---- Typography -------------------------------------------------- */
+  --font-display: "Century Gothic", var(--font-jost), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
+
+  /* ---- Layout ------------------------------------------------------ */
+  --page-max: 1320px;
+  --gutter: clamp(20px, 5vw, 56px);
+  --gutter-nav: clamp(16px, 5vw, 56px);
+
+  /* Vertical rhythm for full-bleed sections */
+  --section-y: clamp(72px, 9vw, 120px);
+  --section-y-sm: clamp(56px, 7vw, 96px);
+  --page-hero-y: clamp(64px, 8vw, 110px);
+
+  /* ---- Motion ------------------------------------------------------ */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Breakpoint at which the nav collapses (documented for reference;
+     media queries cannot read custom properties). */
+  --bp-nav: 900px;
+}
