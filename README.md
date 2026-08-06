@@ -98,6 +98,41 @@ mean to change the design:
 The nav collapse point (900px) is a media query in `Header.module.css`; the
 prototype did the same thing with a JS resize listener.
 
+## Chat assistant
+
+A floating assistant is mounted globally in `app/layout.tsx`. It answers
+questions and can capture a lead (name, email, what they want to make)
+without leaving the page.
+
+It ships in **demo mode**: answers come from the keyword-matched knowledge
+base in `src/data/chat.ts`, and it returns a fallback pointing at a discovery
+call rather than guessing when nothing matches.
+
+**To connect the real API**, set `CHAT_API_URL` (see `.env.example`). That is
+the whole switch — `src/lib/chat/provider.ts` picks the live provider over the
+demo one, and nothing else in the app changes. The adapter posts
+`{ messages: [{ role, content }] }` and reads the reply from `content`,
+`reply`, `message.content` or `content[].text`, so most APIs work as-is; if
+yours differs, edit `extractContent` in `src/lib/chat/live-provider.ts`.
+
+```
+src/
+├── app/api/chat/route.ts      # answers a turn (validates input)
+├── app/api/leads/route.ts     # receives a captured lead
+├── lib/chat/
+│   ├── provider.ts            # <- the swap point: demo vs live
+│   ├── live-provider.ts       # adapter for your API
+│   ├── demo-provider.ts       # keyword lookup over data/chat.ts
+│   ├── leads.ts               # <- the swap point for lead delivery
+│   └── validate.ts
+├── components/chat/ChatWidget.tsx
+└── data/chat.ts               # all copy + the demo Q&A
+```
+
+Leads go to `LEADS_WEBHOOK_URL` if set; otherwise they are only logged
+server-side. **Logs are not durable storage** — set a real destination before
+launch, and point the `/contact` and newsletter forms at the same place.
+
 ## Not yet wired up
 
 Both forms are presentational — they need an endpoint before launch:
