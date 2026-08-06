@@ -1,9 +1,14 @@
 # Formulyn — Website
 
 Next.js (App Router) rebuild of the approved Formulyn design. The original
-single-file prototype lives at `../Formulyn Website.dc.html`; this project is a
-faithful port of it — same colours, type, spacing and behaviour — restructured
-so the site is maintainable.
+single-file prototype lives at `design/Formulyn Website.dc.html`; this project
+is a faithful port of it — same colours, type, spacing and behaviour —
+restructured so the site is maintainable.
+
+The app sits at the repository root so any host (Vercel included) detects the
+framework automatically, with no root-directory setting to configure. Design
+source material — the prototype, the concept deck, the brand guide — lives
+under `design/` and is not part of the build.
 
 ## Getting started
 
@@ -51,6 +56,13 @@ src/
 │   └── globals.css           # reset, base type, .shell, .srOnly
 │
 └── hooks/
+
+design/                       # reference only — excluded from the build
+├── Formulyn Website.dc.html  # the approved prototype this port is checked against
+├── support.js                # its runtime
+├── mockup/                   # concept deck + screenshots
+├── brand/                    # brand viewer
+└── uploads/                  # brand guide PDF
 ```
 
 Each component pairs a `.tsx` with a co-located `.module.css`. Styles are scoped
