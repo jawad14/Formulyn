@@ -29,6 +29,6 @@ export const briefForm = {
 export const ctaBanner = {
   eyebrow: "Next step",
   heading: "Begin with a 30-minute discovery call",
-  body: "No commitment, no NDA required at first contact. We'll scope what's possible.",
+  body: "A focused conversation to understand your product and scope what's possible — no pressure, no pitch.",
   cta: { label: "Book the call →", href: "/contact" },
 } as const;

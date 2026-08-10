@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { caseStudies, caseStudiesSection } from "@/data/home";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -20,7 +21,16 @@ export function CaseStudiesSection() {
         <div className={styles.grid}>
           {caseStudies.map((study) => (
             <Reveal as="article" key={study.title} className={styles.card}>
-              <div className={styles.thumb}>{study.imageLabel}</div>
+              <div className={styles.thumb}>
+                <Image
+                  src={study.image.src}
+                  alt={study.image.alt}
+                  className={styles.thumbImage}
+                  sizes="(max-width: 640px) 100vw, (max-width: 980px) 50vw, 33vw"
+                  fill
+                />
+                <div className={styles.thumbVeil} aria-hidden="true" />
+              </div>
               <div className={styles.content}>
                 <p className={styles.category}>{study.category}</p>
                 <h3 className={styles.title}>{study.title}</h3>

@@ -57,6 +57,8 @@
   --page-max: 1320px;
   --gutter: clamp(20px, 5vw, 56px);
   --gutter-nav: clamp(16px, 5vw, 56px);
+  /* Height of the sticky header, for offsetting sticky / anchored content. */
+  --nav-h: 67px;
 
   /* Vertical rhythm for full-bleed sections */
   --section-y: clamp(72px, 9vw, 120px);

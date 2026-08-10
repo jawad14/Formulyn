@@ -1,7 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
-import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
+import type {
+  ComponentPropsWithoutRef,
+  CSSProperties,
+  ElementType,
+  ReactNode,
+} from "react";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import styles from "./Reveal.module.css";
 
@@ -15,23 +20,45 @@ type RevealTag =
   | "p"
   | "li";
 
+/** Direction the element travels in from. */
+type RevealFrom = "up" | "left";
+
 type RevealProps<T extends RevealTag> = {
   as?: T;
   className?: string;
+  style?: CSSProperties;
+  /** Stagger, in ms, held before this element starts its reveal. */
+  delay?: number;
+  /** Where the element enters from. Defaults to a lift from below. */
+  from?: RevealFrom;
+  /**
+   * Reveal even when the element is already on screen at first paint. Use for
+   * the leading elements of a section that should animate in on load rather
+   * than sit there finished.
+   */
+  eager?: boolean;
   children: ReactNode;
-} & Omit<ComponentPropsWithoutRef<T>, "className" | "children">;
+} & Omit<ComponentPropsWithoutRef<T>, "className" | "children" | "style">;
 
-const TRANSITION_MS = 900;
+/** Comfortably longer than the longest entrance in Reveal.module.css. */
+const ANIMATION_MS = 1000;
 
 /**
- * Fades + lifts its child into view on first scroll past.
+ * Fades + lifts its child into view on first scroll past. With `from="left"`
+ * it slides in from the side instead, de-blurring and settling from a hair
+ * under full scale.
  *
- * Content that is already within the first viewport renders untouched, so the
- * top of the page never flashes empty. Respects `prefers-reduced-motion`.
+ * Content that is already within the first viewport renders untouched unless
+ * `eager` is set, so the top of the page never flashes empty. Respects
+ * `prefers-reduced-motion`.
  */
 export function Reveal<T extends RevealTag = "div">({
   as,
   className,
+  delay = 0,
+  from = "up",
+  eager = false,
+  style,
   children,
   ...rest
 }: RevealProps<T>) {
@@ -46,8 +73,9 @@ export function Reveal<T extends RevealTag = "div">({
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    // Already on screen (or above it) — leave it alone.
-    if (reduced || el.getBoundingClientRect().top < window.innerHeight) return;
+    if (reduced) return;
+    // Already on screen (or above it) — leave it alone unless asked otherwise.
+    if (!eager && el.getBoundingClientRect().top < window.innerHeight) return;
 
     setState("hidden");
 
@@ -65,15 +93,18 @@ export function Reveal<T extends RevealTag = "div">({
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [eager]);
 
-  // Drop the transition class once the animation is done so the element's own
-  // hover transitions are no longer overridden.
+  // Drop the animation class once it has run so the element's own hover
+  // transitions are no longer overridden. The stagger delays the finish.
   useIsomorphicLayoutEffect(() => {
     if (state !== "shown") return;
-    const timer = window.setTimeout(() => setState("idle"), TRANSITION_MS);
+    const timer = window.setTimeout(
+      () => setState("idle"),
+      ANIMATION_MS + delay,
+    );
     return () => window.clearTimeout(timer);
-  }, [state]);
+  }, [state, delay]);
 
   const revealClass =
     state === "hidden"
@@ -85,7 +116,14 @@ export function Reveal<T extends RevealTag = "div">({
   return (
     <Tag
       ref={ref}
-      className={[className, revealClass].filter(Boolean).join(" ")}
+      className={[className, revealClass, from === "left" && styles.fromLeft]
+        .filter(Boolean)
+        .join(" ")}
+      style={
+        delay
+          ? ({ "--reveal-delay": `${delay}ms`, ...style } as CSSProperties)
+          : style
+      }
       {...rest}
     >
       {children}

@@ -1,8 +1,8 @@
 /** Content for the /journal page. */
 
 export const journalHero = {
-  eyebrow: "Journal · Notes from the bench",
-  heading: "What we're learning",
+  eyebrow: "Journal · What we're learning",
+  heading: "Notes from the bench",
   body: "Formulation science, regulatory changes, and the unglamorous decisions that decide whether a product works.",
 } as const;
 
@@ -13,9 +13,15 @@ export type FeaturedPost = {
   date: string;
   readingTime: string;
   imageLabel: string[];
+  /** Permalink to the original LinkedIn post, when the note started there. */
+  sourceUrl?: string;
 };
 
-export const featuredPost: FeaturedPost = {
+/**
+ * Placeholder until the LinkedIn notes are brought across. Set to `null` and
+ * the section drops to the empty state below the newsletter.
+ */
+export const featuredPost: FeaturedPost | null = {
   eyebrow: "Featured · Regulatory",
   title: `Why "clinically studied" and "clinically proven" are not the same sentence`,
   excerpt:
@@ -31,8 +37,11 @@ export type Post = {
   excerpt: string;
   meta: string;
   imageLabel: string;
+  /** Permalink to the original LinkedIn post, when the note started there. */
+  sourceUrl?: string;
 };
 
+/** Placeholders until the LinkedIn notes are brought across. */
 export const posts: Post[] = [
   {
     category: "Stability",
@@ -59,6 +68,12 @@ export const posts: Post[] = [
     imageLabel: "Image placeholder",
   },
 ];
+
+/** Shown in place of the article grid while there is nothing published. */
+export const journalEmpty = {
+  heading: "New notes are publishing shortly",
+  body: "Bench notes from our lab are being brought across now. Subscribe below and the next one reaches you first.",
+} as const;
 
 export const newsletter = {
   heading: "Bench notes, monthly",
