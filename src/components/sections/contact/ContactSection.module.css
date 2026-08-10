@@ -125,3 +125,21 @@
 .submit:hover {
   background: var(--c-gold-light);
 }
+
+.submit:disabled,
+.field:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.formStatus {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--c-sage);
+  margin: 0;
+}
+
+/* Keep the form's 18px flex rhythm intact while the status line is empty. */
+.formStatus:empty {
+  display: none;
+}

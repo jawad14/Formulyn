@@ -55,6 +55,18 @@ export type DemoAnswer = {
 
 export const demoAnswers: DemoAnswer[] = [
   {
+    keywords: [
+      "what do you do",
+      "what does formulyn do",
+      "who are you",
+      "what is formulyn",
+      "services",
+      "help with",
+    ],
+    answer:
+      "Formulyn is an R&D consultancy — we develop evidence-led formulations for supplement, skincare and wellness brands, from the first brief through to a regulatory-ready dossier. We don't manufacture, so the formula and the IP stay yours and you can take them to any factory. Three mandates: custom formulation, optimisation and reformulation, and dosage consultancy.",
+  },
+  {
     keywords: ["how long", "timeline", "time", "weeks", "duration", "fast"],
     answer:
       "Most projects run 8–16 weeks across four phases: Discovery (weeks 1–2), Synthesis (3–6), Validation (7–14) and Handover (15–16). Validation is the variable one — stability and panel work set the pace.",

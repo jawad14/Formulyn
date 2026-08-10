@@ -8,7 +8,8 @@ export const hero = {
   primaryCta: { label: "Book a 30-min call", href: "/contact" },
   secondaryCta: { label: "The methodology →", href: "/process" },
   image: {
-    src: "https://formulyn.com.au/assets/hero-amber-BO75QiMo.jpg",
+    /* Served from public/ — never hot-link the domain this site replaces. */
+    src: "/hero-amber.jpg",
     alt: "Amber botanical tincture in laboratory glass",
   },
   badge: { value: "340+", label: "Reference compounds" },
@@ -174,17 +175,34 @@ export type Testimonial = {
   attribution: string;
 };
 
+/** Verified Google reviews, as published on formulyn.com.au. */
 export const testimonials: Testimonial[] = [
   {
     quote: `"Formulyn are masters at what they do. Glad I found them."`,
     attribution: "Murad A (unomed) · Ireland · April 2026",
   },
   {
-    quote: `"Placeholder: replace with a second verified review."`,
-    attribution: "Client name · Location · Date",
+    quote: `"I have been working with them for the past three months and have received excellent support in formulation as well as compliance with Australian TGA and EU regulations. I would highly recommend their services."`,
+    attribution: "Babar K. · March 2026",
   },
   {
-    quote: `"Placeholder: replace with a third verified review."`,
-    attribution: "Client name · Location · Date",
+    quote: `"The team was professional and communicative throughout the process. They took the time to clearly explain their research findings and how certain ingredients were chosen or excluded, which I found particularly valuable."`,
+    attribution: "Fatima M. · UAE · December 2025",
+  },
+  {
+    quote: `"Great formulations. Love the results. And this scientist is great to communicate with."`,
+    attribution: "Manahil · January 2026",
+  },
+  {
+    quote: `"She helped me optimise my formula! Great experience."`,
+    attribution: "James W. · March 2026",
+  },
+  {
+    quote: `"She is super talented! Loved her formulations!!"`,
+    attribution: "Olivia P. · November 2025",
+  },
+  {
+    quote: `"Great experience!!"`,
+    attribution: "Washma A. · March 2026",
   },
 ];

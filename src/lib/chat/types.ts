@@ -20,10 +20,14 @@ export type ChatProvider = {
   reply(messages: ChatMessage[]): Promise<ChatReply>;
 };
 
+/** Where a lead came from, so the destination can route it. */
+export type LeadSource = "chat" | "contact-form" | "newsletter";
+
 export type Lead = {
   name: string;
   email: string;
   brief: string;
+  source: LeadSource;
   /** Conversation leading up to the capture, for context. */
   transcript: ChatMessage[];
 };

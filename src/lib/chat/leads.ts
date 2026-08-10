@@ -16,6 +16,7 @@ export async function deliverLead(lead: Lead): Promise<void> {
 
   if (!url) {
     console.info("[lead] captured (no LEADS_WEBHOOK_URL configured)", {
+      source: lead.source,
       name: lead.name,
       email: lead.email,
       brief: lead.brief,
@@ -34,7 +35,7 @@ export async function deliverLead(lead: Lead): Promise<void> {
   const response = await fetch(url, {
     method: "POST",
     headers,
-    body: JSON.stringify({ source: "chat", ...lead }),
+    body: JSON.stringify(lead),
     signal: AbortSignal.timeout(15_000),
   });
 

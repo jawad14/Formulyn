@@ -8,6 +8,18 @@ import type { ChatMessage, ChatProvider, ChatReply } from "./types";
  * points at a call rather than guessing. Placeholder until the live API is
  * connected — see provider.ts.
  */
+/**
+ * Whole-word (or whole-phrase) match. A plain `includes` would let the
+ * keyword "time" match "sometimes" and "own" match "download", handing back
+ * a confidently wrong answer.
+ */
+function mentions(haystack: string, keyword: string): boolean {
+  const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(?<![\\p{L}\\p{N}])${escaped}(?![\\p{L}\\p{N}])`, "u").test(
+    haystack,
+  );
+}
+
 function findAnswer(question: string): string {
   const haystack = question.toLowerCase();
 
@@ -16,7 +28,7 @@ function findAnswer(question: string): string {
   for (const entry of demoAnswers) {
     let score = 0;
     for (const keyword of entry.keywords) {
-      if (haystack.includes(keyword)) {
+      if (mentions(haystack, keyword)) {
         // Longer keyword matches are stronger signals than single words.
         score += keyword.includes(" ") ? 3 : 1;
       }

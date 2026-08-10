@@ -6,7 +6,14 @@ import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import styles from "./Reveal.module.css";
 
 /** Elements the reveal wrapper is allowed to render as. */
-type RevealTag = "div" | "section" | "article" | "figure" | "aside" | "p";
+type RevealTag =
+  | "div"
+  | "section"
+  | "article"
+  | "figure"
+  | "aside"
+  | "p"
+  | "li";
 
 type RevealProps<T extends RevealTag> = {
   as?: T;

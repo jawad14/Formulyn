@@ -33,7 +33,15 @@ export const metadata: Metadata = {
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
     locale: "en_AU",
+    url: site.url,
   },
+  twitter: {
+    card: "summary_large_image",
+    site: "@formulyn",
+    title: `${site.name} — ${site.tagline}`,
+    description: site.description,
+  },
+  alternates: { canonical: "/" },
 };
 
 export default function RootLayout({
