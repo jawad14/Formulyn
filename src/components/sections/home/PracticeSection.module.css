@@ -26,8 +26,15 @@
 
 .index {
   font-family: var(--font-display);
-  color: var(--c-gold);
-  font-size: 14px;
+  /*
+   * Was 14px gold at the default weight, which clears only 2.3:1 against the
+   * bone canvas and read as a hairline. Bronze is the accent this design
+   * already uses for small type on light surfaces — the eyebrow above the grid
+   * is the same colour — and carries 3.6:1 at this size and weight.
+   */
+  font-weight: 600;
+  color: var(--c-bronze);
+  font-size: 18px;
   letter-spacing: 0.1em;
   margin: 0 0 40px;
 }
