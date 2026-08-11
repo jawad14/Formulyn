@@ -25,7 +25,10 @@ export function SituationsSection() {
               from="scale"
               delay={index * 110}
             >
-              <p className={styles.label}>The situation</p>
+              <p className={styles.head}>
+                <span className={styles.index}>{situation.index}</span>
+                <span className={styles.label}>The situation</span>
+              </p>
               <h3 className={styles.quote}>{situation.quote}</h3>
               <p className={styles.problem}>{situation.problem}</p>
               <div className={styles.response}>

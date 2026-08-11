@@ -60,7 +60,9 @@ export const situationsSection = {
     "Different starting points, same outcome: a formula you own, backed by evidence you can defend.",
 } as const;
 
+/** `index` is carried in the data, as the mandates and principles are. */
 export type Situation = {
+  index: string;
   quote: string;
   problem: string;
   response: string;
@@ -68,6 +70,7 @@ export type Situation = {
 
 export const situations: Situation[] = [
   {
+    index: "[01]",
     quote: `"I'm not a scientist, and I don't want to walk into a manufacturer meeting sounding like I don't know what I'm talking about."`,
     problem:
       "You know exactly what you want the product to do. What's missing is the technical vocabulary to hold your ground while it gets built.",
@@ -75,6 +78,7 @@ export const situations: Situation[] = [
       "We arm you with a formula and a dossier you understand inside out — so you walk into every room as the expert on your own product.",
   },
   {
+    index: "[02]",
     quote: `"My product works, but the margin and shelf life don't."`,
     problem:
       "Costs climb, stability fails at month nine, and customers notice the texture changing.",
@@ -82,6 +86,7 @@ export const situations: Situation[] = [
       "Reformulate around the actives that earn their place, then design the stability protocol that proves it holds.",
   },
   {
+    index: "[03]",
     quote: `"I can't tell whether my claims will survive a regulator."`,
     problem:
       "Dosages are guesswork, the label promises more than the evidence supports, and launch keeps slipping.",
