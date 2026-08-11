@@ -11,10 +11,16 @@
     var(--c-ink);
 }
 
+/*
+ * The masthead enters as a sequence — eyebrow, heading word by word, then the
+ * standfirst — and carries the scroll-linked exit, so it draws back as the page
+ * proper takes over. The `animation` here therefore stays on the children: the
+ * wrapper's own animation slot belongs to that exit.
+ */
+
 .inner {
   max-width: var(--page-max);
   margin: 0 auto;
-  animation: fHeroIn 0.9s var(--ease-out-expo) both;
 }
 
 .eyebrow {
@@ -23,6 +29,7 @@
   text-transform: uppercase;
   color: var(--c-sage-muted);
   margin: 0 0 22px;
+  animation: fHeroIn 0.8s var(--ease-out-expo) 0.05s both;
 }
 
 .heading {
@@ -44,4 +51,5 @@
   max-width: 560px;
   margin: 24px 0 0;
   text-wrap: pretty;
+  animation: fHeroIn 0.9s var(--ease-out-expo) 0.5s both;
 }

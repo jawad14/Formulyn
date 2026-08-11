@@ -21,7 +21,7 @@ type RevealTag =
   | "li";
 
 /** Direction the element travels in from. */
-type RevealFrom = "up" | "left";
+type RevealFrom = "up" | "left" | "right" | "scale";
 
 type RevealProps<T extends RevealTag> = {
   as?: T;
@@ -44,9 +44,9 @@ type RevealProps<T extends RevealTag> = {
 const ANIMATION_MS = 1000;
 
 /**
- * Fades + lifts its child into view on first scroll past. With `from="left"`
- * it slides in from the side instead, de-blurring and settling from a hair
- * under full scale.
+ * Fades + lifts its child into view on first scroll past. `from` swaps that
+ * for a slide in from either side — de-blurring and settling from a hair under
+ * full scale — or for a straight rise out of scale.
  *
  * Content that is already within the first viewport renders untouched unless
  * `eager` is set, so the top of the page never flashes empty. Respects
@@ -113,12 +113,19 @@ export function Reveal<T extends RevealTag = "div">({
         ? styles.shown
         : undefined;
 
+  const fromClass =
+    from === "left"
+      ? styles.fromLeft
+      : from === "right"
+        ? styles.fromRight
+        : from === "scale"
+          ? styles.fromScale
+          : undefined;
+
   return (
     <Tag
       ref={ref}
-      className={[className, revealClass, from === "left" && styles.fromLeft]
-        .filter(Boolean)
-        .join(" ")}
+      className={[className, revealClass, fromClass].filter(Boolean).join(" ")}
       style={
         delay
           ? ({ "--reveal-delay": `${delay}ms`, ...style } as CSSProperties)

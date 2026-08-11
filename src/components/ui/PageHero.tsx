@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { AnimatedText } from "./AnimatedText";
 import { Stop } from "./Stop";
 import styles from "./PageHero.module.css";
 
@@ -21,18 +22,19 @@ export function PageHero({
   headingMeasure = 16,
 }: PageHeroProps) {
   return (
-    <header className={styles.hero}>
-      <div className={styles.inner}>
+    <header className={`${styles.hero} motionScene`}>
+      <div className={`${styles.inner} scrollExit`}>
         <p className={styles.eyebrow}>{eyebrow}</p>
-        <h1
+        <AnimatedText
+          as="h1"
           className={styles.heading}
-          style={
-            { "--heading-measure": `${headingMeasure}ch` } as CSSProperties
-          }
-        >
-          {heading}
-          <Stop />
-        </h1>
+          style={{ "--heading-measure": `${headingMeasure}ch` } as CSSProperties}
+          text={heading}
+          trailing={<Stop />}
+          delay={120}
+          stagger={60}
+          eager
+        />
         {body ? <p className={styles.body}>{body}</p> : null}
       </div>
     </header>

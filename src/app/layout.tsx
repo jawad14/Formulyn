@@ -3,6 +3,7 @@ import { Inter, Jost } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ChatWidget } from "@/components/chat/ChatWidget";
+import { PageTransition } from "@/components/ui/PageTransition";
 import { site } from "@/data/site";
 import "@/styles/globals.css";
 
@@ -51,7 +52,9 @@ export default function RootLayout({
     <html lang="en" className={`${jost.variable} ${inter.variable}`}>
       <body>
         <Header />
-        <main>{children}</main>
+        <main>
+          <PageTransition>{children}</PageTransition>
+        </main>
         <Footer />
         <ChatWidget />
       </body>
