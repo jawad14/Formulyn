@@ -153,7 +153,7 @@ export const caseStudies: CaseStudy[] = [
     body: "A therapeutic skincare product needed full EU compliance to launch — safety documentation, ingredient compliance, and regulatory sign-off, not just a formula.",
     image: {
       src: "/case-skincare-manuka.webp",
-      alt: "An open amber glass jar of golden manuka balm on dark slate, beside a sprig of manuka blossom",
+      alt: "An open amber glass jar of golden manuka balm on a dark laboratory bench, with manuka blossom, honeycomb, pipettes and a microscope alongside",
     },
     metrics: [
       { value: "2 SKUs", label: "Cleared" },

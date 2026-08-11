@@ -1,31 +1,39 @@
 import { intro } from "@/data/home";
+import { AnimatedText } from "@/components/ui/AnimatedText";
 import { Reveal } from "@/components/ui/Reveal";
 import { Stop } from "@/components/ui/Stop";
 import styles from "./IntroSection.module.css";
 
 export function IntroSection() {
   return (
-    <section className={styles.section}>
-      <div className={styles.grid}>
-        <Reveal>
-          <p className={styles.eyebrow}>{intro.eyebrow}</p>
-          <h2 className={styles.heading}>
-            {intro.heading}
-            <Stop />
-          </h2>
-        </Reveal>
+    <section className={`${styles.section} edgeSweep`}>
+      <div className={`${styles.grid} scrollSettle`}>
+        <div>
+          <Reveal as="p" className={styles.eyebrow}>
+            {intro.eyebrow}
+          </Reveal>
+          <AnimatedText
+            as="h2"
+            className={styles.heading}
+            text={intro.heading}
+            trailing={<Stop />}
+            delay={110}
+          />
+        </div>
 
-        <Reveal>
-          <p className={styles.lead}>{intro.lead}</p>
-          <p className={styles.body}>{intro.body}</p>
-          <div className={styles.tags}>
+        <div>
+          <Reveal from="right" delay={140}>
+            <p className={styles.lead}>{intro.lead}</p>
+            <p className={styles.body}>{intro.body}</p>
+          </Reveal>
+          <Reveal className={styles.tags} delay={300}>
             {intro.tags.map((tag) => (
               <span key={tag} className={styles.tag}>
                 {tag}
               </span>
             ))}
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
       </div>
     </section>
   );

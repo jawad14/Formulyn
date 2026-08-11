@@ -6,8 +6,8 @@ import styles from "./CaseStudiesSection.module.css";
 
 export function CaseStudiesSection() {
   return (
-    <section className={styles.section}>
-      <div className="shell">
+    <section className={`${styles.section} edgeSweep`}>
+      <div className="shell scrollSettle">
         <SectionHeading
           tone="dark"
           eyebrow={caseStudiesSection.eyebrow}
@@ -19,8 +19,15 @@ export function CaseStudiesSection() {
         />
 
         <div className={styles.grid}>
-          {caseStudies.map((study) => (
-            <Reveal as="article" key={study.title} className={styles.card}>
+          {caseStudies.map((study, index) => (
+            <Reveal
+              as="article"
+              key={study.title}
+              className={styles.card}
+              from="scale"
+              /* Cards land in reading order; the row of three sets the pace. */
+              delay={(index % 3) * 110}
+            >
               <div className={styles.thumb}>
                 <Image
                   src={study.image.src}

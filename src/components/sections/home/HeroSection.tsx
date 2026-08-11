@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment } from "react";
+import type { CSSProperties } from "react";
 import { hero, heroStats, marqueeItems } from "@/data/home";
+import { AnimatedText } from "@/components/ui/AnimatedText";
 import { Stop } from "@/components/ui/Stop";
 import styles from "./HeroSection.module.css";
 
@@ -10,25 +11,25 @@ const marqueeText = `${marqueeItems.join(" · ")} · `;
 
 export function HeroSection() {
   return (
-    <header className={styles.hero}>
+    <header className={`${styles.hero} motionScene`}>
       <div className={styles.glow} aria-hidden="true" />
 
-      <div className={styles.grid}>
+      <div className={`${styles.grid} scrollExit`}>
         <div className={styles.copy}>
           <p className={styles.eyebrow}>
             <span className={styles.eyebrowDot} aria-hidden="true" />
             <span className={styles.eyebrowLabel}>{hero.eyebrow}</span>
           </p>
 
-          <h1 className={styles.heading}>
-            {hero.headingLines.map((line, index) => (
-              <Fragment key={line}>
-                {index > 0 ? <br /> : null}
-                {line}
-              </Fragment>
-            ))}
-            <Stop />
-          </h1>
+          <AnimatedText
+            as="h1"
+            className={styles.heading}
+            text={hero.headingLines}
+            trailing={<Stop />}
+            delay={140}
+            stagger={65}
+            eager
+          />
 
           <p className={styles.body}>{hero.body}</p>
 
@@ -48,7 +49,7 @@ export function HeroSection() {
             <Image
               src={hero.image.src}
               alt={hero.image.alt}
-              className={styles.image}
+              className={`${styles.image} scrollZoom`}
               sizes="(max-width: 900px) 100vw, 50vw"
               fill
               priority
@@ -62,8 +63,12 @@ export function HeroSection() {
       </div>
 
       <div className={styles.stats}>
-        {heroStats.map((stat) => (
-          <div key={stat.label} className={styles.stat}>
+        {heroStats.map((stat, index) => (
+          <div
+            key={stat.label}
+            className={styles.stat}
+            style={{ "--stat-index": index } as CSSProperties}
+          >
             <div className={styles.statValue}>{stat.value}</div>
             <div className={styles.statLabel}>{stat.label}</div>
           </div>

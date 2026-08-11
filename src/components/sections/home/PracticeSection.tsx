@@ -5,8 +5,8 @@ import styles from "./PracticeSection.module.css";
 
 export function PracticeSection() {
   return (
-    <section className={styles.section}>
-      <div className="shell">
+    <section className={`${styles.section} edgeSweep`}>
+      <div className="shell scrollSettle">
         <SectionHeading
           tone="light"
           eyebrow={practiceSection.eyebrow}
@@ -17,8 +17,12 @@ export function PracticeSection() {
         />
 
         <div className={styles.grid}>
-          {mandates.map((mandate) => (
-            <Reveal key={mandate.index} className={styles.cell}>
+          {mandates.map((mandate, index) => (
+            <Reveal
+              key={mandate.index}
+              className={styles.cell}
+              delay={index * 90}
+            >
               <p className={styles.index}>{mandate.index}</p>
               <h3 className={styles.title}>{mandate.title}</h3>
               <p className={styles.body}>{mandate.body}</p>
