@@ -1,6 +1,7 @@
 import { Fragment, type ReactNode } from "react";
-import { featuredPost, journalEmpty, posts } from "@/data/journal";
+import { featuredPost, journalEmpty, journalEntries } from "@/data/journal";
 import { Reveal } from "@/components/ui/Reveal";
+import { JournalCard } from "./JournalCard";
 import { NewsletterSignup } from "./NewsletterSignup";
 import styles from "./JournalSection.module.css";
 
@@ -30,7 +31,7 @@ function SourceLink({
 }
 
 export function JournalSection() {
-  const hasContent = featuredPost !== null || posts.length > 0;
+  const hasContent = featuredPost !== null || journalEntries.length > 0;
 
   return (
     <section className={`${styles.section} edgeSweep`}>
@@ -62,25 +63,15 @@ export function JournalSection() {
           </Reveal>
         ) : null}
 
-        {posts.length > 0 ? (
+        {journalEntries.length > 0 ? (
           <div className={styles.grid}>
-            {posts.map((post, index) => (
-              <Reveal
-                as="article"
-                key={post.title}
-                className={styles.card}
+            {journalEntries.map((entry, index) => (
+              /* Cards land in reading order; the row of three sets the pace. */
+              <JournalCard
+                key={entry.id}
+                entry={entry}
                 delay={(index % 3) * 90}
-              >
-                <div className={styles.cardThumb}>{post.imageLabel}</div>
-                <div className={styles.cardBody}>
-                  <p className={styles.cardCategory}>{post.category}</p>
-                  <h3 className={styles.cardTitle}>
-                    <SourceLink href={post.sourceUrl}>{post.title}</SourceLink>
-                  </h3>
-                  <p className={styles.cardExcerpt}>{post.excerpt}</p>
-                  <div className={styles.cardMeta}>{post.meta}</div>
-                </div>
-              </Reveal>
+              />
             ))}
           </div>
         ) : null}

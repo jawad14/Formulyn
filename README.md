@@ -40,7 +40,7 @@ src/
 │   ├── home.ts               # hero, stats, situations, mandates, cases, reviews
 │   ├── process.ts            # the four phases + timeline proportions
 │   ├── industries.ts         # the seven categories
-│   ├── journal.ts            # featured post, post grid, newsletter
+│   ├── journal.ts            # hero, newsletter — posts load from content/journal.json
 │   ├── about.ts              # narrative + principles
 │   └── contact.ts            # contact page + the closing CTA banner
 │
@@ -56,6 +56,9 @@ src/
 │   └── globals.css           # reset, base type, .shell, .srOnly
 │
 └── hooks/
+
+content/
+└── journal.json              # the journal posts — instructions at the top of the file
 
 design/                       # reference only — excluded from the build
 ├── Formulyn Website.dc.html  # the approved prototype this port is checked against
@@ -73,7 +76,8 @@ by CSS Modules, so a class name can never leak between sections.
 | Task | File |
 | --- | --- |
 | Change any copy on the site | the matching file in `src/data/` |
-| Add a case study, review, post or industry | push an item onto the array in `src/data/` |
+| Add a case study, review or industry | push an item onto the array in `src/data/` |
+| Add a journal post | copy an entry in `content/journal.json`, newest at the top |
 | Change a brand colour or font | `src/styles/tokens.css` |
 | Add or reorder a nav item | `navLinks` in `src/data/site.ts` |
 | Add a page | new folder in `src/app/`, section components in `src/components/sections/` |
