@@ -1,10 +1,17 @@
 /**
  * Copy and demo knowledge for the chat assistant.
  *
- * The Q&A below powers the DEMO provider only. Once the real API is wired up
- * (see src/lib/chat/provider.ts) these entries stop being used for answering,
- * but `suggestions` and the UI copy still come from here.
+ * The bot's actual training is the system prompt in src/data/chat-prompt.ts.
+ * The Q&A below powers the DEMO provider only — the offline fallback that
+ * answers when CHAT_API_URL is unset (see src/lib/chat/provider.ts). It
+ * mirrors the same knowledge and obeys the same hard rules, so the bot never
+ * contradicts itself depending on which provider is live. Change the prompt
+ * and these entries together.
+ *
+ * `suggestions` and the UI copy are used in both modes.
  */
+
+import { site } from "./site";
 
 export const chatUi = {
   launcherLabel: "Ask a question",
@@ -20,14 +27,19 @@ export const chatUi = {
 } as const;
 
 export const greeting =
-  "Hello. I can answer questions about how we work — the four-phase process, timelines, categories, IP and regulatory pathways. What are you working on?";
+  "Hello. I can answer questions about how we work — the process, timelines, categories, IP and regulatory pathways. What are you working on?";
 
-/** Tappable starter prompts shown under the greeting. */
+/**
+ * Tappable starter questions on the opening screen. Clicking one sends it
+ * through the same path as the composer, so the answer comes from the system
+ * prompt rather than a canned reply.
+ */
 export const suggestions = [
-  "How long does it take?",
-  "What does it cost?",
-  "Who owns the formula?",
-  "Do you manufacture?",
+  "What exactly does Formulyn do?",
+  "What does the process look like, start to finish?",
+  "Who will I be working with?",
+  "How much does a project cost?",
+  "I just have an idea — can you still help?",
 ] as const;
 
 /** ---- Lead capture ------------------------------------------------- */
@@ -41,8 +53,7 @@ export const leadFlow = {
   invalidEmail: "That doesn't look like an email address. Mind checking it?",
   success:
     "Got it — thank you. We'll be in touch within one business day. If you'd rather book a time directly, the discovery call link is on the contact page.",
-  failure:
-    "Something went wrong sending that through. Email info@formulyn.com.au and it'll reach the same place.",
+  failure: `Something went wrong sending that through. Email ${site.email} and it'll reach the same place.`,
 } as const;
 
 /** ---- Demo knowledge base ------------------------------------------ */
@@ -56,35 +67,76 @@ export type DemoAnswer = {
 export const demoAnswers: DemoAnswer[] = [
   {
     keywords: [
+      // Matching is whole-phrase, so "what does formulyn do" alone misses
+      // "what exactly does Formulyn do". Keep the short spans too.
+      "formulyn do",
       "what do you do",
       "what does formulyn do",
       "who are you",
       "what is formulyn",
       "services",
-      "help with",
+      // No "help with" — it is a question template ("can you help with TGA
+      // compliance?"), so as a phrase it outscored the specific entries.
     ],
     answer:
-      "Formulyn is an R&D consultancy — we develop evidence-led formulations for supplement, skincare and wellness brands, from the first brief through to a regulatory-ready dossier. We don't manufacture, so the formula and the IP stay yours and you can take them to any factory. Three mandates: custom formulation, optimisation and reformulation, and dosage consultancy.",
+      "Formulyn is a boutique nutraceutical and cosmetic formulation R&D consultancy — we turn a product idea into a validated, evidence-backed formula and a regulatory-ready dossier. We don't manufacture, deliberately, so the formula is built around what the product needs rather than what a factory happens to stock. We then help you find and compare independent manufacturers.",
   },
   {
     keywords: ["how long", "timeline", "time", "weeks", "duration", "fast"],
     answer:
-      "Most projects run 8–16 weeks across four phases: Discovery (weeks 1–2), Synthesis (3–6), Validation (7–14) and Handover (15–16). Validation is the variable one — stability and panel work set the pace.",
+      "Indicatively around 16 weeks, though it varies with scope — category, regulatory pathway and how much testing the product needs all move it. The discovery call is where we scope yours properly.",
   },
   {
     keywords: ["cost", "price", "pricing", "budget", "quote", "expensive"],
     answer:
-      "Fixed scope, fixed price, quoted per phase. Each phase ends at a go / no-go gate, so you're never committed beyond the next milestone. Exact numbers depend on category and regulatory scope — that's what the 30-minute discovery call is for.",
+      "Every project is scoped and quoted against its own brief, so there's no price list and no generic range I can give you. It's phase-based with milestone payments rather than a lump sum, and the number is confirmed after the 30-minute discovery call once we understand complexity, category and scope.",
   },
   {
-    keywords: ["ip", "own", "ownership", "rights", "patent", "formula mine"],
+    // Whole-word matching, so plurals need spelling out: "own" misses "owns".
+    keywords: [
+      "ip",
+      "own",
+      "owns",
+      "ownership",
+      "rights",
+      "patent",
+      "formula mine",
+    ],
     answer:
-      "The IP is yours from day one, and assignment is written in at phase one rather than negotiated at the end. You leave with a manufacturer-agnostic dossier: master formula, batch records, spec sheets, COA templates and the regulatory file.",
+      "You do. There's a full IP assignment at Handover, including the reasoning behind every ingredient — not just the formula sheet. Your information is treated as confidential throughout, and an NDA can be signed at any point.",
+  },
+  {
+    keywords: [
+      "who will i be working with",
+      "who works on",
+      "team",
+      "founder",
+      "rumi",
+      "romaisa",
+      "scientist",
+      "formulator",
+    ],
+    answer:
+      "Formulyn was founded by Romaisa Irfan — \"Rumi\" — a biochemist with postgraduate R&D and formulation expertise, and its Founder and Chief Formulation Scientist. You work directly with Rumi from the first call through to handover.",
+  },
+  {
+    keywords: [
+      "just an idea",
+      "only an idea",
+      "idea",
+      "getting started",
+      "beginner",
+      "first time",
+      "new to this",
+      "scientific background",
+    ],
+    answer:
+      "Yes — an idea is enough to start, and no scientific background is needed; the reasoning gets explained in plain terms as we go. We work with first-time founders and established brands alike. Bring whatever you have to the call: a concept, a target market, claims you'd like to make, competitors, or just a rough sketch of the product.",
   },
   {
     keywords: ["manufacture", "manufacturing", "factory", "produce", "moq"],
     answer:
-      "No — and deliberately so. We're an R&D consultancy with no factory to fill and no minimum order to protect, so there's no reason to steer you toward an ingredient we happen to hold. Take the finished dossier to any manufacturer; if they underperform, take it to the next one.",
+      "No — and deliberately so. We're formulation-only and manufacturer-agnostic, with no factory to fill and no ingredient stock to move. At the Manufacturing step you get a shortlist of three or four independent manufacturers with MOQ, cost, location and packaging compared. You're never required to use one of them, and we can build to your own manufacturer's capabilities instead.",
   },
   {
     keywords: [
@@ -114,7 +166,7 @@ export const demoAnswers: DemoAnswer[] = [
   {
     keywords: ["stability", "shelf life", "shelf", "expiry", "degradation"],
     answer:
-      "Accelerated stability at 3, 6 and 12 months, plus microbiological challenge testing where the product is topical. Accelerated data is directional, not conclusive — real-time results still matter, which is why month nine is where a lot of formulas quietly fail.",
+      "We design and specify the stability testing; a third-party lab physically runs it. It's an optional add-on and priced separately from the main engagement — worth raising on the call so it can be scoped alongside everything else.",
   },
   {
     keywords: [
@@ -128,9 +180,17 @@ export const demoAnswers: DemoAnswer[] = [
       "Liposomal delivery is a formulation route we work in, not a category of its own. What matters is whether the data supports the claim: particle size distribution and entrapment efficiency, measured — not an encapsulation claim asserted on the label.",
   },
   {
-    keywords: ["process", "phases", "how do you work", "methodology", "steps"],
+    keywords: [
+      "process",
+      "phases",
+      "how do you work",
+      "methodology",
+      "steps",
+      "start to finish",
+      "end to end",
+    ],
     answer:
-      "Four phases. Discovery sets the brief, target claims and regulatory scope. Synthesis grades the evidence and builds the formulation matrix. Validation runs bench prep, stability and sensory panels. Handover gives you the full dossier and the IP.",
+      "Five steps. Discovery Call sets the vision, target market, claims and regulatory scope. Formulation covers the literature review, ingredient selection, dosage modelling and a validated formulation matrix. Regulatory & Compliance handles label claims, ingredient compliance and documentation for TGA, FDA, CPNP and the like. Manufacturing gives you a shortlist of three or four independent manufacturers. Handover is full sign-off, complete documentation and full IP transfer to you.",
   },
   {
     keywords: ["reformulate", "existing", "improve", "fix", "margin", "cost down"],
@@ -159,8 +219,7 @@ export const demoAnswers: DemoAnswer[] = [
   },
   {
     keywords: ["contact", "call", "book", "talk", "speak", "email", "meeting"],
-    answer:
-      "Start with a 30-minute discovery call — a focused conversation to understand your product and scope what's possible, no pressure and no pitch. You can also email info@formulyn.com.au.",
+    answer: `Start with a 30-minute discovery call — a focused conversation to understand your product and scope what's possible, no pressure and no pitch. You can also email ${site.email}.`,
   },
   {
     keywords: ["nda", "confidential", "secret", "protect"],
@@ -170,5 +229,4 @@ export const demoAnswers: DemoAnswer[] = [
 ];
 
 /** Shown when nothing matches — never invents an answer. */
-export const fallbackAnswer =
-  "I don't have a confident answer to that one. It's a good question for the 30-minute discovery call, where someone from the team can give you a proper response — or email info@formulyn.com.au.";
+export const fallbackAnswer = `I don't have a confident answer to that one. It's a good question for the 30-minute discovery call, where someone from the team can give you a proper response — or email ${site.email}.`;

@@ -226,6 +226,28 @@
   color: var(--c-ink);
 }
 
+/*
+ * Starter questions on the opening screen. Same chip language, stacked
+ * rather than wrapped: the questions are full sentences, so side-by-side
+ * chips would break into ragged one-word lines on a narrow panel.
+ */
+.starters {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.starter {
+  composes: chip;
+  /* Tap target floor for touch — the chip's padding alone falls short. */
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  /* Long questions wrap inside the button instead of widening the panel. */
+  overflow-wrap: anywhere;
+}
+
 /* ---- Composer -------------------------------------------------------- */
 
 .composer {
