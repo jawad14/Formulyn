@@ -26,7 +26,7 @@
   color: var(--c-cream);
 }
 
-/* ---- Desktop rail (>= 900px) -------------------------------------- */
+/* ---- Desktop rail (>= 1100px) ------------------------------------- */
 
 .desktop {
   flex: 1 1 auto;
@@ -66,7 +66,7 @@
   color: var(--c-ink);
 }
 
-/* ---- Mobile rail (< 900px) ---------------------------------------- */
+/* ---- Mobile rail (< 1100px) --------------------------------------- */
 
 .mobile {
   flex: 1 1 auto;
@@ -116,6 +116,52 @@
   background: var(--c-cream);
 }
 
+/* ---- Read progress ------------------------------------------------- */
+
+/*
+ * Sits on the bar's own bottom hairline and fills as the document is scrolled.
+ * Driven by a scroll timeline, so it tracks the scrollbar exactly with no
+ * listener and no work on the main thread. Browsers without scroll timelines
+ * are left with the bar at zero width, which is simply the hairline as it is.
+ */
+
+.progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.progressBar {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--c-gold), var(--c-gold-light));
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .progressBar {
+      animation: progress-fill linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+}
+
+@keyframes progress-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 /* ---- Drawer -------------------------------------------------------- */
 
 .drawer {
@@ -133,14 +179,14 @@
   color: var(--c-sage);
   text-transform: uppercase;
   padding: 14px 0;
-  border-bottom: 1px solid rgba(237, 232, 221, 0.07);
+  border-bottom: 1px solid var(--line-dark-drawer);
 }
 
 .drawerLink:last-child {
   border-bottom: none;
 }
 
-@media (max-width: 899px) {
+@media (max-width: 1099px) {
   .desktop {
     display: none;
   }
@@ -150,7 +196,7 @@
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1100px) {
   /* The drawer belongs to the compact rail only. */
   .drawer {
     display: none;

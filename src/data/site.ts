@@ -3,9 +3,35 @@
  * Anything that appears in more than one place lives here.
  */
 
+import { serviceNavItems } from "@/data/services";
+
+/** Icon keys for nav children; resolved by `serviceIcons` in ui/icons.tsx. */
+export type NavIconName = "flask" | "dossier" | "facility";
+
+/**
+ * A page listed underneath a nav item. Carrying the blurb and the icon here
+ * keeps the dropdown and the mobile accordion driven entirely by data.
+ */
+export type NavChild = {
+  label: string;
+  href: string;
+  description: string;
+  icon: NavIconName;
+};
+
 export type NavLink = {
   label: string;
   href: string;
+  /**
+   * When present the item renders as a dropdown on the desktop rail and an
+   * accordion in the mobile drawer, instead of a plain link.
+   */
+  children?: NavChild[];
+  /**
+   * Label for the link back to the section's own page, shown in the head of
+   * the dropdown. Defaults to "All <label>".
+   */
+  overviewLabel?: string;
 };
 
 export const site = {
@@ -32,6 +58,13 @@ export const site = {
  */
 export const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
+  {
+    label: "Services",
+    href: "/services",
+    // The /services page frames the practice as four mandates.
+    overviewLabel: "All four mandates",
+    children: serviceNavItems,
+  },
   { label: "Process", href: "/process" },
   { label: "Industries", href: "/industries" },
   { label: "Journal", href: "/journal" },
@@ -42,18 +75,16 @@ export const navLinks: NavLink[] = [
 export const navCta: NavLink = { label: "Initiate Brief", href: "/contact" };
 
 /**
- * Footer "Practice" column — the nav minus Home and Contact, plus Services.
- * Services is not in the main nav (it would overflow the design's bar) but
- * it and its detail pages are indexed, so the footer carries the link.
- * Contact is omitted here because the adjacent Consultancy column already
- * carries the address, the email and the discovery-call link.
+ * Footer "Practice" column — the nav minus Home and Contact. Services leads
+ * the column because it leads the nav. Contact is omitted here because the
+ * adjacent Consultancy column already carries the address, the email and the
+ * discovery-call link.
  */
 const FOOTER_OMIT = new Set(["/", "/contact"]);
 
-export const footerPracticeLinks: NavLink[] = [
-  { label: "Services", href: "/services" },
-  ...navLinks.filter((link) => !FOOTER_OMIT.has(link.href)),
-];
+export const footerPracticeLinks: NavLink[] = navLinks.filter(
+  (link) => !FOOTER_OMIT.has(link.href),
+);
 
 export const footerBlurb =
   "Research and development consultancy building evidence-led formulations for supplement, skincare, and wellness brands across Australia and beyond.";

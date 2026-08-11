@@ -5,6 +5,8 @@
  * here must not change — renaming one drops an indexed page.
  */
 
+import type { NavChild } from "@/data/site";
+
 export const servicesHero = {
   eyebrow: "Services · Four Mandates",
   heading: "Practice disciplines",
@@ -251,3 +253,39 @@ export const serviceDetails: ServiceDetail[] = [
 export function getServiceDetail(slug: string): ServiceDetail | undefined {
   return serviceDetails.find((detail) => detail.slug === slug);
 }
+
+/**
+ * The Services nav dropdown.
+ *
+ * Each entry is a précis of the detail page it points at — the wording is
+ * drawn from that page's lead, scope and process above rather than written
+ * separately, so the menu never drifts from the page. Keep descriptions to
+ * roughly two lines at the menu's 420px width.
+ *
+ * Adding an entry here adds a row to the desktop dropdown and the mobile
+ * accordion; nothing in the components needs to change. `icon` resolves
+ * through `serviceIcons` in components/ui/icons.tsx.
+ */
+export const serviceNavItems: NavChild[] = [
+  {
+    label: "Formulation Development",
+    href: "/services/formulation-development",
+    description:
+      "Evidence-led formulas built from the ground up — ingredient rationale, dosage modelling and stability work, delivered as a manufacturer-ready dossier.",
+    icon: "flask",
+  },
+  {
+    label: "Regulatory Compliance & Market Registration",
+    href: "/services/regulatory-compliance",
+    description:
+      "TGA and ARTG pathways through EU CPNP, UK SCPN and GCC — ingredient screening, label and claim review, and dossiers lodged in each market.",
+    icon: "dossier",
+  },
+  {
+    label: "Manufacturer Sourcing & GMP Clearance",
+    href: "/services/manufacturer-sourcing",
+    description:
+      "Independent shortlisting of manufacturers, verified for TGA GMP clearance, capability and minimum-order viability — with no manufacturing conflicts.",
+    icon: "facility",
+  },
+];
