@@ -28,7 +28,6 @@ export const mandates: Mandate[] = [
     title: "Launch-Ready Formula Development",
     tagline: "From concept to compliant formula.",
     body: "Complete product development: ingredient research, literature review, dosage optimisation, stability testing, manufacturing recommendations, and regulatory alignment for TGA / ARTG, EU CPNP and multi-market standards. Built for new brands and first-time founders.",
-    href: "/services/formulation-development",
   },
   {
     index: "[02]",
