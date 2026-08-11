@@ -13,16 +13,21 @@ export function ServiceDetailSections({ detail }: { detail: ServiceDetail }) {
         </Reveal>
       </section>
 
-      <section className={styles.includes}>
-        <div className="shell">
+      <section className={`${styles.includes} edgeSweep`}>
+        <div className="shell scrollSettle">
           <SectionHeading
             eyebrow="Scope"
             heading={detail.includesHeading}
             tone="light"
           />
           <div className={styles.grid}>
-            {detail.includes.map((item) => (
-              <Reveal as="article" key={item.title} className={styles.cell}>
+            {detail.includes.map((item, index) => (
+              <Reveal
+                as="article"
+                key={item.title}
+                className={styles.cell}
+                delay={(index % 3) * 90}
+              >
                 <h3 className={styles.cellTitle}>{item.title}</h3>
                 <p className={styles.cellBody}>{item.body}</p>
               </Reveal>
@@ -31,16 +36,22 @@ export function ServiceDetailSections({ detail }: { detail: ServiceDetail }) {
         </div>
       </section>
 
-      <section className={styles.process}>
-        <div className="shell">
+      <section className={`${styles.process} edgeSweep`}>
+        <div className="shell scrollSettle">
           <SectionHeading
             eyebrow="Protocol"
             heading={detail.processHeading}
             tone="dark"
           />
           <ol className={styles.steps}>
-            {detail.process.map((step) => (
-              <Reveal as="li" key={step.step} className={styles.step}>
+            {detail.process.map((step, index) => (
+              <Reveal
+                as="li"
+                key={step.step}
+                className={styles.step}
+                from="left"
+                delay={index * 80}
+              >
                 <span className={styles.stepIndex}>{step.step}</span>
                 <div>
                   <h3 className={styles.stepTitle}>{step.title}</h3>
