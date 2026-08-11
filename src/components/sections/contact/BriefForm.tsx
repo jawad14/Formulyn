@@ -81,7 +81,10 @@ export function BriefForm() {
   const disabled = status === "sending";
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit} noValidate>
+    // The target of every "book the call" CTA on the site. Without an anchor
+    // to aim at, those links resolved to /contact itself, which is a no-op for
+    // anyone already on this page — the click simply did nothing.
+    <form id="brief" className={styles.form} onSubmit={handleSubmit} noValidate>
       <div className={styles.formHead}>
         <h2 className={styles.formTitle}>{briefForm.title}</h2>
         <span className={styles.availability}>

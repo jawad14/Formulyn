@@ -134,5 +134,7 @@ export const ctaBanner = {
   eyebrow: "Next step",
   heading: "Begin with a 30-minute discovery call",
   body: "A focused conversation to understand your product and scope what's possible — no pressure, no pitch.",
-  cta: { label: "Book the call →", href: "/contact" },
+  /* Anchored on the brief form, not the page: the banner is rendered on every
+     route, and a bare /contact href is a dead click for anyone already there. */
+  cta: { label: "Book the call →", href: "/contact#brief" },
 } as const;

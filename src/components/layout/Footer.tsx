@@ -42,7 +42,9 @@ export function Footer() {
             <a href={`mailto:${site.email}`} className={styles.goldLink}>
               {site.email}
             </a>
-            <Link href="/contact" className={styles.goldLink}>
+            {/* Anchored on the brief form. The footer is on every route,
+                /contact included, where a bare /contact href went nowhere. */}
+            <Link href="/contact#brief" className={styles.goldLink}>
               Book a 30-min discovery call →
             </Link>
             {/* Named for the company rather than the network — the founder's

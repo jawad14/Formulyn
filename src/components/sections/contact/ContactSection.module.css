@@ -84,6 +84,9 @@
   display: flex;
   flex-direction: column;
   gap: 22px;
+  /* #brief is the landing point for the site's booking CTAs; the bar is
+     sticky, so clear it rather than let the form head sit underneath. */
+  scroll-margin-top: calc(var(--nav-h) + 28px);
 }
 
 .formHead {
