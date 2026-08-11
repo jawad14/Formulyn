@@ -40,7 +40,7 @@ export const site = {
   tagline: "From brief to batch.",
   description:
     "Boutique nutraceutical and cosmetic formulation consultancy. Evidence-led supplement, skincare, and wellness formulations from molecular brief to regulatory-ready product.",
-  email: "info@formulyn.com.au",
+  email: "romaisa.i@formulyn.com.au",
   location: "Brisbane, Australia",
   locationLong: "Brisbane, Australia · Serving clients globally",
   googleReviewsUrl: "https://www.google.com/search?q=Formulyn+Brisbane",
