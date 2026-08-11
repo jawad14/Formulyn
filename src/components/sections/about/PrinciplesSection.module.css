@@ -5,7 +5,7 @@
 .section {
   background: var(--c-ink);
   color: var(--c-cream);
-  padding: var(--section-y) 0;
+  padding: var(--section-y) var(--gutter);
 }
 
 .grid {

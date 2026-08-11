@@ -21,7 +21,7 @@
 .includes {
   background: var(--c-bone);
   color: var(--c-graphite);
-  padding: var(--section-y-sm) 0;
+  padding: var(--section-y-sm) var(--gutter);
 }
 
 .grid {
@@ -64,7 +64,7 @@
 .process {
   background: var(--c-ink);
   color: var(--c-cream);
-  padding: var(--section-y) 0;
+  padding: var(--section-y) var(--gutter);
 }
 
 .steps {
