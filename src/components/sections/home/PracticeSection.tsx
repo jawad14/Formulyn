@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { mandates, practiceSection } from "@/data/home";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -29,6 +30,16 @@ export function PracticeSection() {
             </Reveal>
           ))}
         </div>
+
+        {/* One way out of the section, in place of a link on every card: the
+            three led to the same page, and read identically to a screen
+            reader without a card-specific suffix to tell them apart. */}
+        <Reveal className={styles.moreRow} delay={mandates.length * 90}>
+          <Link href={practiceSection.more.href} className={styles.more}>
+            {practiceSection.more.label}
+            <span aria-hidden="true"> →</span>
+          </Link>
+        </Reveal>
       </div>
     </section>
   );

@@ -46,3 +46,51 @@
   margin: 0;
   text-wrap: pretty;
 }
+
+/* The section's one link, centred on the grid it closes. */
+.moreRow {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(34px, 4vw, 52px);
+}
+
+/* Matches the "Read the detail" links on /services, which this one opens. */
+.more {
+  /* Only as wide as its own lettering, so the gold rule underlines the words
+     rather than the width of the row. */
+  align-self: center;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--c-graphite);
+  border-bottom: 1px solid var(--line-gold-strong);
+  padding-bottom: 3px;
+  transition: color 0.25s;
+}
+
+.more:hover {
+  color: var(--c-bronze);
+}
+
+/*
+ * Touch target, as on /services: the link's own box is 19px tall because the
+ * rule under it is part of the lettering, so a min-height would strand that
+ * underline. Grow the hit area with a pseudo-element, which is out of flow and
+ * so changes nothing that is drawn.
+ */
+@media (max-width: 860px) {
+  .more {
+    position: relative;
+  }
+
+  .more::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 50%;
+    height: 44px;
+    transform: translateY(50%);
+  }
+}

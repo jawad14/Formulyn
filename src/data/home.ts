@@ -100,6 +100,12 @@ export const practiceSection = {
   heading: "Molecular rigor",
   intro:
     "Three core mandates, each scoped, costed, and delivered with the same scientific discipline regardless of brand stage.",
+  /**
+   * The section's single route out, in place of a link on every card. Left
+   * unanchored: /services is meant to be read from the top, and it carries a
+   * fourth mandate beyond the three summarised here.
+   */
+  more: { label: "See all mandates", href: "/services" },
 } as const;
 
 export type Mandate = {
