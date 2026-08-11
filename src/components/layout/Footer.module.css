@@ -1,7 +1,14 @@
 .footer {
   background: var(--c-ink-deep);
   border-top: 1px solid var(--line-dark-soft);
-  padding: clamp(56px, 7vw, 88px) var(--gutter) 40px;
+  /*
+   * The trailing padding also has to clear the floating chat launcher. It is
+   * fixed to the bottom corner, and the copyright line is the one piece of the
+   * document that can never be scrolled out from under it — at every width the
+   * launcher was sitting directly on top of it.
+   */
+  padding: clamp(56px, 7vw, 88px) var(--gutter)
+    calc(40px + var(--chat-clearance));
 }
 
 .grid {
