@@ -95,3 +95,16 @@
      drawer takes over below 1100px rather than the old 900px. */
   --bp-nav: 1100px;
 }
+
+/*
+ * The compact bar is still taller than the desktop rail: its row is a 44px
+ * touch target (CTA, burger and wordmark alike) against the bar's own 14px of
+ * padding either side plus the hairline, so it measures 73px rather than 67px.
+ * Sticky offsets and scroll-margins keyed to --nav-h land under the bar on
+ * every phone otherwise; correct the token itself rather than each consumer.
+ */
+@media (max-width: 1099px) {
+  :root {
+    --nav-h: 73px;
+  }
+}

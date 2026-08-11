@@ -1,11 +1,14 @@
 .nav {
+  /* Named so the drawer can subtract the row gap it sits below. */
+  --nav-gap: clamp(12px, 2vw, 24px);
+
   position: sticky;
   top: 0;
   z-index: 50;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: clamp(12px, 2vw, 24px);
+  gap: var(--nav-gap);
   flex-wrap: wrap;
   padding: 14px var(--gutter-nav);
   background: var(--nav-bg);
@@ -76,19 +79,30 @@
   gap: 10px;
 }
 
+/*
+ * Sized to the burger beside it: 44px tall, which is the touch target and no
+ * more. The vertical padding used to sit outside the 44px min-height — this
+ * project has no global border-box reset — so the pill measured 68px and set
+ * the height of the whole compact bar. Height now comes from min-height alone,
+ * and the label is trimmed a step so the pill stays clear of the wordmark on
+ * a 360px screen while reading as the same small-caps CTA.
+ */
 .ctaCompact {
+  box-sizing: border-box;
   font-family: var(--font-display);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--c-ink);
   background: var(--c-gold);
-  padding: 12px 18px;
+  padding: 0 14px;
   border-radius: 2px;
   min-height: 44px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  white-space: nowrap;
 }
 
 .ctaCompact:hover {
@@ -165,11 +179,14 @@
 /* ---- Drawer -------------------------------------------------------- */
 
 .drawer {
+  /* Clearance between the bar's own row and the drawer's hairline. */
+  --drawer-gap: 12px;
+
   flex: 1 1 100%;
   display: flex;
   flex-direction: column;
   border-top: 1px solid var(--line-dark);
-  margin-top: 12px;
+  margin-top: var(--drawer-gap);
   padding-top: 6px;
 }
 
@@ -193,6 +210,45 @@
 
   .mobile {
     display: flex;
+  }
+
+  /*
+   * The bar is sticky at the top of the viewport, so anything an open drawer
+   * pushes past the bottom edge can never be reached: the page scrolls behind
+   * the bar rather than through it. With a service accordion expanded the
+   * drawer stands ~1000px tall, which put Contact — and the tail of the
+   * submenu — permanently off-screen on every phone size. Cap the drawer to
+   * the room the bar leaves and let it carry its own scroll.
+   *
+   * The chat launcher is subtracted too: it floats above the bar, so a drawer
+   * running the full height would end with its last row underneath it.
+   */
+  .drawer {
+    /* So the cap below measures the drawer's whole box, padding and hairline
+       included — this project has no global border-box reset. */
+    box-sizing: border-box;
+    max-height: calc(
+      100vh - var(--nav-h) - var(--nav-gap) - var(--drawer-gap) -
+        var(--chat-clearance)
+    );
+    max-height: calc(
+      100dvh - var(--nav-h) - var(--nav-gap) - var(--drawer-gap) -
+        var(--chat-clearance)
+    );
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  /*
+   * The wordmark's own line box is 23px tall, well under a comfortable touch
+   * target. The CTA and burger already set the row at 44px, so centring it on
+   * a 44px box costs no height. Left at its natural size on the desktop rail,
+   * where the row is shorter and this would push the bar taller.
+   */
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
 }
 
