@@ -10,9 +10,9 @@ import styles from "./FounderSection.module.css";
  */
 export function FounderSection() {
   return (
-    <section className={styles.section}>
-      <Reveal className={styles.grid}>
-        <div className={styles.aside}>
+    <section className={`${styles.section} edgeSweep`}>
+      <div className={styles.grid}>
+        <Reveal className={styles.aside} from="left">
           <div className={styles.portraitFrame}>
             <Image
               src={founder.photo.src}
@@ -36,9 +36,9 @@ export function FounderSection() {
             <LinkedIn className={styles.linkedinMark} />
             {founder.name} on LinkedIn
           </a>
-        </div>
+        </Reveal>
 
-        <div>
+        <Reveal from="right" delay={140}>
           <p className={styles.eyebrow}>{founder.eyebrow}</p>
           <h2 className={styles.name}>{founder.name}</h2>
           <p className={styles.role}>{founder.role}</p>
@@ -54,8 +54,8 @@ export function FounderSection() {
           </ul>
 
           <blockquote className={styles.quote}>{founder.quote}</blockquote>
-        </div>
-      </Reveal>
+        </Reveal>
+      </div>
     </section>
   );
 }

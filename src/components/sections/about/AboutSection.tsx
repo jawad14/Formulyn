@@ -1,4 +1,5 @@
 import { aboutBody, practiceLedger } from "@/data/about";
+import { AnimatedText } from "@/components/ui/AnimatedText";
 import { Reveal } from "@/components/ui/Reveal";
 import { Stop } from "@/components/ui/Stop";
 import styles from "./AboutSection.module.css";
@@ -6,24 +7,31 @@ import styles from "./AboutSection.module.css";
 /** The origin narrative, with the practice ledger set alongside it. */
 export function AboutSection() {
   return (
-    <section className={styles.section}>
-      <div className={styles.grid}>
-        <Reveal>
-          <p className={styles.lead}>{aboutBody.lead}</p>
+    <section className={`${styles.section} edgeSweep`}>
+      <div className={`${styles.grid} scrollSettle`}>
+        <div>
+          <Reveal as="p" className={styles.lead}>
+            {aboutBody.lead}
+          </Reveal>
 
-          <h2 className={styles.heading}>
-            {aboutBody.heading}
-            <Stop />
-          </h2>
+          <AnimatedText
+            as="h2"
+            className={styles.heading}
+            text={aboutBody.heading}
+            trailing={<Stop />}
+            delay={110}
+          />
 
-          {aboutBody.paragraphs.map((paragraph) => (
-            <p key={paragraph} className={styles.paragraph}>
-              {paragraph}
-            </p>
-          ))}
-        </Reveal>
+          <Reveal delay={200}>
+            {aboutBody.paragraphs.map((paragraph) => (
+              <p key={paragraph} className={styles.paragraph}>
+                {paragraph}
+              </p>
+            ))}
+          </Reveal>
+        </div>
 
-        <Reveal>
+        <Reveal from="right" delay={160}>
           <dl className={styles.ledger}>
             {practiceLedger.map((entry) => (
               <div key={entry.label} className={styles.ledgerRow}>

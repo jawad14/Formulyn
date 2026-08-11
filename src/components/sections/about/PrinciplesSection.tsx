@@ -6,8 +6,8 @@ import styles from "./PrinciplesSection.module.css";
 /** The four commitments, on the dark surface. */
 export function PrinciplesSection() {
   return (
-    <section className={styles.section}>
-      <div className="shell">
+    <section className={`${styles.section} edgeSweep`}>
+      <div className="shell scrollSettle">
         <SectionHeading
           eyebrow={principlesSection.eyebrow}
           heading={principlesSection.heading}
@@ -15,8 +15,13 @@ export function PrinciplesSection() {
         />
 
         <div className={styles.grid}>
-          {principles.map((principle) => (
-            <Reveal as="article" key={principle.index} className={styles.cell}>
+          {principles.map((principle, index) => (
+            <Reveal
+              as="article"
+              key={principle.index}
+              className={styles.cell}
+              delay={index * 90}
+            >
               <p className={styles.index}>{principle.index}</p>
               <h3 className={styles.name}>{principle.name}</h3>
               <p className={styles.line}>{principle.line}</p>
