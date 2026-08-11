@@ -262,6 +262,24 @@
   white-space: nowrap;
 }
 
+/*
+ * Declared here rather than in the shared keyframes.css: CSS Modules rewrites
+ * animation names to module-scoped ones, so a bare reference to a keyframe
+ * defined in a global stylesheet resolves to nothing and the track sits still.
+ *
+ * The track holds two identical copies of the list, so travelling exactly half
+ * its width lands the second copy where the first began — the loop is seamless
+ * and the categories read right to left.
+ */
+@keyframes fMarquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
 .marqueeItem {
   font-size: 13px;
   letter-spacing: 0.24em;
