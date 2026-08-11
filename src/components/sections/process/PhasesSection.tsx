@@ -6,7 +6,7 @@ import styles from "./PhasesSection.module.css";
 
 export function PhasesSection() {
   return (
-    <section className={styles.section}>
+    <section className={`${styles.section} edgeSweep`}>
       <div className="shell">
         <Timeline />
 
