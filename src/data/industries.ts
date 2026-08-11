@@ -44,7 +44,7 @@ export const industries: Industry[] = [
       "Immune",
     ],
     image: {
-      src: "",
+      src: "/industries/supplements.webp",
       alt: "Capsules and powdered actives weighed out on a formulation bench",
     },
   },
@@ -62,7 +62,7 @@ export const industries: Industry[] = [
       "Clinical dossiers",
     ],
     image: {
-      src: "",
+      src: "/industries/nutraceuticals.webp",
       alt: "Botanical extracts and reference literature laid out for review",
     },
   },
@@ -80,7 +80,7 @@ export const industries: Industry[] = [
       "Preservation",
     ],
     image: {
-      src: "",
+      src: "/industries/skincare.webp",
       alt: "Serum dropper and cream jar on a pale stone surface",
     },
   },
@@ -98,7 +98,7 @@ export const industries: Industry[] = [
       "AU / EU / US",
     ],
     image: {
-      src: "",
+      src: "/industries/pet-wellness.webp",
       alt: "Pet supplement chews and powder beside a feeding bowl",
     },
   },
@@ -117,7 +117,7 @@ export const industries: Industry[] = [
       "Shelf stability",
     ],
     image: {
-      src: "",
+      src: "/industries/functional-food-beverages.webp",
       alt: "Functional beverage being poured beside blended powders",
     },
   },
@@ -135,8 +135,8 @@ export const industries: Industry[] = [
       "Micro safety",
     ],
     image: {
-      src: "",
-      alt: "Topical balm and gel samples under laboratory light",
+      src: "/industries/topicals.webp",
+      alt: "An open tin of balm and a dish of cream beside a swatch drawn across pale stone",
     },
   },
   {
@@ -153,8 +153,8 @@ export const industries: Industry[] = [
       "Claim substantiation",
     ],
     image: {
-      src: "",
-      alt: "Active concentrate in amber glass beside a stability record",
+      src: "/industries/cosmeceuticals.webp",
+      alt: "Active concentrate in amber glass beside a dish of pearlescent cream",
     },
   },
 ];
