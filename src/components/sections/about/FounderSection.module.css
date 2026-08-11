@@ -80,6 +80,24 @@
   color: var(--c-bronze);
 }
 
+/* Touch target grown past the 21px text box. Absolutely positioned, so it is
+   not laid out as a flex item of the link and the mark/label gap is untouched. */
+@media (max-width: 860px) {
+  .linkedin {
+    position: relative;
+  }
+
+  .linkedin::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 44px;
+    transform: translateY(-50%);
+  }
+}
+
 .linkedinMark {
   color: var(--c-bronze);
   flex-shrink: 0;

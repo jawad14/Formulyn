@@ -119,3 +119,26 @@
   font-size: 12px;
   color: var(--c-sage-dim);
 }
+
+/*
+ * Touch sizing for the link columns.
+ *
+ * A 14px link occupies a 17px line box, and at a 12px gap the rows sat on a
+ * 29px pitch — too small to hit, and too close together to hit the right one.
+ * Standing each link on a 44px box and taking the spacing back out of the gap
+ * keeps the column's overall rhythm close to the drawn design while making the
+ * rows separately tappable.
+ */
+@media (max-width: 860px) {
+  .columnList {
+    gap: 2px;
+  }
+
+  .columnLink,
+  .goldLink,
+  .social {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}

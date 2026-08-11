@@ -75,3 +75,25 @@
 .link:hover {
   color: var(--c-bronze);
 }
+
+/*
+ * Touch target. The link's own box is 19px tall because the rule under it is
+ * part of the lettering — giving the element a min-height would strand that
+ * underline 25px below the text. Grow the hit area with a pseudo-element
+ * instead, which is out of flow and so changes nothing that is drawn.
+ */
+@media (max-width: 860px) {
+  .link {
+    position: relative;
+  }
+
+  .link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 44px;
+    transform: translateY(-50%);
+  }
+}

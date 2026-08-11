@@ -492,6 +492,29 @@ a.channelValue {
   color: var(--c-gold-light);
 }
 
+/*
+ * Touch target. The address is a single 22px line on anything wider than a
+ * 320px phone (where it wraps to two and happens to clear 44px on its own).
+ * Grown with a pseudo-element so the channel card keeps its drawn height —
+ * the label above it and the card padding below are not interactive, so there
+ * is nothing for the larger area to steal.
+ */
+@media (max-width: 860px) {
+  a.channelValue {
+    position: relative;
+  }
+
+  a.channelValue::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 44px;
+    transform: translateY(-50%);
+  }
+}
+
 a.channelValue:hover {
   color: var(--c-gold);
 }

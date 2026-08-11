@@ -260,6 +260,24 @@
   border-bottom-color: var(--c-gold-light);
 }
 
+/* Touch target grown past the 20px text box without moving the gold rule that
+   sits under the lettering — see the same treatment on the services grid. */
+@media (max-width: 860px) {
+  .ctaLink {
+    position: relative;
+  }
+
+  .ctaLink::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 44px;
+    transform: translateY(-50%);
+  }
+}
+
 /* ---- Stacked ---------------------------------------------------------- */
 
 @media (max-width: 860px) {
