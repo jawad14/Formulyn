@@ -160,7 +160,7 @@ export const demoAnswers: DemoAnswer[] = [
   {
     keywords: ["contact", "call", "book", "talk", "speak", "email", "meeting"],
     answer:
-      "Start with a 30-minute discovery call — no commitment and no NDA needed at first contact. You can also email info@formulyn.com.au.",
+      "Start with a 30-minute discovery call — a focused conversation to understand your product and scope what's possible, no pressure and no pitch. You can also email info@formulyn.com.au.",
   },
   {
     keywords: ["nda", "confidential", "secret", "protect"],

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { briefForm } from "@/data/contact";
+import { site } from "@/data/site";
+import { CategorySelect } from "./CategorySelect";
 import styles from "./ContactSection.module.css";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -10,14 +12,15 @@ type Status = "idle" | "sending" | "sent" | "error";
  * Brief intake. Posts to /api/leads — the same destination as the chat
  * widget's capture flow, so there is one place to maintain.
  *
- * Markup and class names are unchanged from the original presentational
- * form; only submission behaviour is added. Without the handler the form
- * GET-submits to the current URL, which loses the lead and writes the
- * enquiry into the address bar and server logs.
+ * /api/leads takes name, email and a single brief string, so the brand and
+ * the category ride along as a header line on the brief rather than as
+ * fields of their own.
  */
 export function BriefForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
+  /** Bumped alongside form.reset() to clear the category picker's state. */
+  const [resetToken, setResetToken] = useState(0);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -25,8 +28,22 @@ export function BriefForm() {
 
     const form = event.currentTarget;
     const data = new FormData(form);
+    const company = String(data.get("company") ?? "").trim();
     const category = String(data.get("category") ?? "").trim();
     const message = String(data.get("message") ?? "").trim();
+
+    if (!data.get(briefForm.consent.name)) {
+      setError("Please confirm the follow-up consent so we can reply.");
+      setStatus("error");
+      return;
+    }
+
+    const header = [
+      company && `Brand: ${company}`,
+      category && `Category: ${category}`,
+    ]
+      .filter(Boolean)
+      .join(" · ");
 
     setStatus("sending");
     setError("");
@@ -38,7 +55,7 @@ export function BriefForm() {
         body: JSON.stringify({
           name: String(data.get("name") ?? "").trim(),
           email: String(data.get("email") ?? "").trim(),
-          brief: category ? `[${category}] ${message}` : message,
+          brief: header ? `${header}\n\n${message}` : message,
           source: "contact-form",
         }),
       });
@@ -51,6 +68,7 @@ export function BriefForm() {
       }
 
       form.reset();
+      setResetToken((token) => token + 1);
       setStatus("sent");
     } catch (caught) {
       setError(
@@ -60,50 +78,100 @@ export function BriefForm() {
     }
   }
 
+  const disabled = status === "sending";
+
   return (
     <form className={styles.form} onSubmit={handleSubmit} noValidate>
-      <p className={styles.formEyebrow}>{briefForm.eyebrow}</p>
+      <div className={styles.formHead}>
+        <h2 className={styles.formTitle}>{briefForm.title}</h2>
+        <span className={styles.availability}>
+          <span className={styles.availabilityDot} aria-hidden="true" />
+          {site.availability}
+        </span>
+      </div>
 
-      {/* Labelled via aria-label so each control stays a direct flex
-          child and keeps the design's even 18px rhythm. */}
-      {briefForm.fields.map((field) => (
+      <div className={styles.fields}>
+        {briefForm.fields.map((field) => (
+          <label key={field.name} className={styles.fieldRow}>
+            <span className={styles.fieldLabel}>
+              {field.label}
+              {field.required ? (
+                <span className={styles.required} aria-hidden="true">
+                  *
+                </span>
+              ) : (
+                <span className={styles.optional}>optional</span>
+              )}
+            </span>
+            <input
+              name={field.name}
+              type={field.type}
+              autoComplete={field.autoComplete}
+              className={styles.field}
+              required={field.required}
+              disabled={disabled}
+            />
+          </label>
+        ))}
+
+        {/* A div rather than a label: the control is a button, which a
+            wrapping label would not caption. */}
+        <div className={styles.fieldRow}>
+          <span className={styles.fieldLabel}>
+            {briefForm.category.label}
+            <span className={styles.optional}>optional</span>
+          </span>
+          <CategorySelect
+            name={briefForm.category.name}
+            label={briefForm.category.label}
+            placeholder={briefForm.category.placeholder}
+            options={briefForm.category.options}
+            disabled={disabled}
+            resetToken={resetToken}
+          />
+        </div>
+
+        <label className={`${styles.fieldRow} ${styles.fieldFull}`}>
+          <span className={styles.fieldLabel}>
+            {briefForm.message.label}
+            <span className={styles.required} aria-hidden="true">
+              *
+            </span>
+          </span>
+          <textarea
+            name={briefForm.message.name}
+            rows={briefForm.message.rows}
+            className={styles.textarea}
+            required
+            disabled={disabled}
+          />
+          <span className={styles.help}>{briefForm.message.help}</span>
+        </label>
+      </div>
+
+      <label className={styles.consent}>
         <input
-          key={field.name}
-          name={field.name}
-          type={field.type}
-          placeholder={field.placeholder}
-          aria-label={field.placeholder}
-          className={styles.field}
-          required={field.name !== "category"}
-          disabled={status === "sending"}
+          type="checkbox"
+          name={briefForm.consent.name}
+          className={styles.checkbox}
+          disabled={disabled}
         />
-      ))}
+        <span className={styles.consentText}>{briefForm.consent.label}</span>
+      </label>
 
-      <textarea
-        name={briefForm.message.name}
-        rows={briefForm.message.rows}
-        placeholder={briefForm.message.placeholder}
-        aria-label={briefForm.message.placeholder}
-        className={styles.textarea}
-        required
-        disabled={status === "sending"}
-      />
-
-      <button
-        type="submit"
-        className={styles.submit}
-        disabled={status === "sending"}
-      >
-        {status === "sending" ? "Sending…" : briefForm.submitLabel}
+      <button type="submit" className={styles.submit} disabled={disabled}>
+        {status === "sending" ? "Sending…" : `${briefForm.submitLabel} →`}
       </button>
 
       <p className={styles.formStatus} role="status" aria-live="polite">
         {status === "sent"
           ? "Thank you — we'll be in touch within one business day."
           : status === "error"
-            ? `${error} Email ${"info@formulyn.com.au"} and it'll reach the same place.`
+            ? `${error} Email ${site.email} and it'll reach the same place.`
             : ""}
       </p>
+
+      <p className={styles.footnote}>{briefForm.footnote}</p>
     </form>
   );
 }
