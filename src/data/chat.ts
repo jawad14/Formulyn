@@ -95,7 +95,7 @@ export const demoAnswers: DemoAnswer[] = [
       "sectors",
     ],
     answer:
-      "Seven active categories: supplements, nutraceuticals, skincare, pet wellness, functional foods, topicals and liposomal delivery. Each has its own regulatory pathway and stability profile.",
+      "Seven active categories: supplements, nutraceuticals, skincare, pet wellness, functional food & beverages, topicals and cosmeceuticals. Each has its own regulatory pathway and stability profile.",
   },
   {
     keywords: [
@@ -125,7 +125,7 @@ export const demoAnswers: DemoAnswer[] = [
       "delivery",
     ],
     answer:
-      "Liposomal delivery is one of our seven categories. What matters is whether the data supports the claim: particle size distribution and entrapment efficiency, measured — not an encapsulation claim asserted on the label.",
+      "Liposomal delivery is a formulation route we work in, not a category of its own. What matters is whether the data supports the claim: particle size distribution and entrapment efficiency, measured — not an encapsulation claim asserted on the label.",
   },
   {
     keywords: ["process", "phases", "how do you work", "methodology", "steps"],
