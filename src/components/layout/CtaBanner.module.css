@@ -57,11 +57,13 @@
   border-radius: 2px;
   transition:
     background 0.25s,
-    transform 0.25s;
+    transform 0.25s var(--ease-out-expo),
+    box-shadow 0.25s;
 }
 
 .cta:hover {
   background: var(--c-gold-light);
   color: var(--c-ink);
   transform: translateY(-2px);
+  box-shadow: 0 16px 34px -18px rgba(201, 150, 63, 0.9);
 }

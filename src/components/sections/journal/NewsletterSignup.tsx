@@ -1,10 +1,11 @@
 import { newsletter } from "@/data/journal";
 import { Reveal } from "@/components/ui/Reveal";
+import { NewsletterForm } from "./NewsletterForm";
 import styles from "./NewsletterSignup.module.css";
 
 /**
- * Monthly bench-notes signup. The form is presentational until a mailing
- * provider is wired up — point `action` at the endpoint when that lands.
+ * Monthly bench-notes signup. The form itself is a client component so it
+ * can post to /api/leads.
  */
 export function NewsletterSignup() {
   return (
@@ -14,18 +15,7 @@ export function NewsletterSignup() {
         <p className={styles.body}>{newsletter.body}</p>
       </div>
 
-      <form className={styles.form}>
-        <input
-          name="email"
-          type="email"
-          className={styles.input}
-          placeholder={newsletter.placeholder}
-          aria-label="Email address"
-        />
-        <button type="submit" className={styles.submit}>
-          {newsletter.submitLabel}
-        </button>
-      </form>
+      <NewsletterForm />
     </Reveal>
   );
 }

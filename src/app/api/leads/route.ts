@@ -2,8 +2,15 @@ import { NextResponse } from "next/server";
 import { deliverLead } from "@/lib/chat/leads";
 import { isValidEmail, parseMessages } from "@/lib/chat/validate";
 import { MAX_MESSAGE_LENGTH } from "@/lib/chat/types";
+import type { LeadSource } from "@/lib/chat/types";
 
 const MAX_NAME = 120;
+
+const SOURCES: LeadSource[] = ["chat", "contact-form", "newsletter"];
+
+function parseSource(value: unknown): LeadSource {
+  return SOURCES.includes(value as LeadSource) ? (value as LeadSource) : "chat";
+}
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -13,7 +20,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const { name, email, brief } = (body ?? {}) as Record<string, unknown>;
+  const { name, email, brief, source } = (body ?? {}) as Record<
+    string,
+    unknown
+  >;
 
   if (typeof name !== "string" || !name.trim()) {
     return NextResponse.json({ error: "Name is required" }, { status: 400 });
@@ -33,6 +43,7 @@ export async function POST(request: Request) {
       name: name.trim().slice(0, MAX_NAME),
       email: email.trim().slice(0, MAX_NAME),
       brief: brief.trim().slice(0, MAX_MESSAGE_LENGTH),
+      source: parseSource(source),
       transcript: parseMessages(body) ?? [],
     });
     return NextResponse.json({ ok: true });

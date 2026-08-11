@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { AnimatedText } from "./AnimatedText";
 import { Reveal } from "./Reveal";
 import { Stop } from "./Stop";
 import styles from "./SectionHeading.module.css";
@@ -33,16 +34,30 @@ export function SectionHeading({
     "--head-gap": gap,
   } as CSSProperties;
 
+  /*
+   * The three parts enter in reading order — eyebrow, then the heading setting
+   * itself word by word, then the supporting paragraph — rather than the block
+   * arriving in one piece.
+   */
   return (
-    <Reveal className={`${styles.head} ${styles[tone]}`} style={vars}>
+    <div className={`${styles.head} ${styles[tone]}`} style={vars}>
       <div>
-        <p className={styles.eyebrow}>{eyebrow}</p>
-        <h2 className={styles.heading}>
-          {heading}
-          <Stop />
-        </h2>
+        <Reveal as="p" className={styles.eyebrow}>
+          {eyebrow}
+        </Reveal>
+        <AnimatedText
+          as="h2"
+          className={styles.heading}
+          text={heading}
+          trailing={<Stop />}
+          delay={110}
+        />
       </div>
-      {intro ? <p className={styles.intro}>{intro}</p> : null}
-    </Reveal>
+      {intro ? (
+        <Reveal as="p" className={styles.intro} delay={260}>
+          {intro}
+        </Reveal>
+      ) : null}
+    </div>
   );
 }

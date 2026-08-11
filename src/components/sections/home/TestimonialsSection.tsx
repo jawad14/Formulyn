@@ -1,5 +1,6 @@
 import { testimonials, testimonialsSection } from "@/data/home";
 import { site } from "@/data/site";
+import { AnimatedText } from "@/components/ui/AnimatedText";
 import { Reveal } from "@/components/ui/Reveal";
 import { Stop } from "@/components/ui/Stop";
 import styles from "./TestimonialsSection.module.css";
@@ -8,18 +9,23 @@ const STARS = "★★★★★";
 
 export function TestimonialsSection() {
   return (
-    <section className={styles.section}>
-      <div className="shell">
-        <Reveal className={styles.head}>
+    <section className={`${styles.section} edgeSweep`}>
+      <div className="shell scrollSettle">
+        <div className={styles.head}>
           <div>
-            <p className={styles.eyebrow}>{testimonialsSection.eyebrow}</p>
-            <h2 className={styles.heading}>
-              {testimonialsSection.heading}
-              <Stop />
-            </h2>
+            <Reveal as="p" className={styles.eyebrow}>
+              {testimonialsSection.eyebrow}
+            </Reveal>
+            <AnimatedText
+              as="h2"
+              className={styles.heading}
+              text={testimonialsSection.heading}
+              trailing={<Stop />}
+              delay={110}
+            />
           </div>
 
-          <div className={styles.score}>
+          <Reveal className={styles.score} from="right" delay={200}>
             <div>
               <div className={styles.scoreValue}>
                 {testimonialsSection.rating}
@@ -44,15 +50,17 @@ export function TestimonialsSection() {
                 Read on Google →
               </a>
             </div>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
 
         <div className={styles.grid}>
-          {testimonials.map((testimonial) => (
+          {testimonials.map((testimonial, index) => (
             <Reveal
               as="figure"
               key={testimonial.attribution + testimonial.quote}
               className={styles.card}
+              from="scale"
+              delay={index * 100}
             >
               <div className={styles.cardStars} aria-hidden="true">
                 {STARS}

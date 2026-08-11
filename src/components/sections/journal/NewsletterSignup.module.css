@@ -58,6 +58,25 @@
   transition: background 0.25s;
 }
 
+.formStatus {
+  flex-basis: 100%;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--c-slate);
+  margin: 0;
+}
+
+/* Keep the row's 10px rhythm intact while the status line is empty. */
+.formStatus:empty {
+  display: none;
+}
+
+.submit:disabled,
+.input:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
 .submit:hover {
   background: var(--c-gold-light);
 }

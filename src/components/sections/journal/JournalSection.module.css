@@ -73,68 +73,67 @@
 
 /* ---- Post grid ------------------------------------------------------ */
 
+/*
+ * The card itself lives in JournalCard.module.css.
+ *
+ * Stepped columns rather than the auto-fit track this grid used to carry:
+ * auto-fit collapses its empty tracks, so a single note stretched the full
+ * width of the shell. The steps below land on the same column counts auto-fit
+ * gave a full row — one up to 640px, two to 980px, three above it.
+ */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(20px, 2.5vw, 32px);
 }
 
-.card {
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 980px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ---- Source link ---------------------------------------------------- */
+
+.sourceLink {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.sourceLink:hover {
+  color: var(--c-gold);
+}
+
+/* ---- Empty state ---------------------------------------------------- */
+
+.empty {
   border: 1px solid var(--line-light);
   border-radius: 2px;
-  overflow: hidden;
-  transition:
-    border-color 0.3s,
-    transform 0.3s;
+  padding: clamp(40px, 6vw, 72px) clamp(28px, 4vw, 52px);
+  text-align: center;
 }
 
-.card:hover {
-  border-color: var(--c-gold);
-  transform: translateY(-4px);
-}
-
-.cardThumb {
-  background: var(--c-bone-shade);
-  border-bottom: 1px solid var(--line-light-soft);
-  aspect-ratio: 16 / 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--c-bronze);
-}
-
-.cardBody {
-  padding: 26px 24px;
-}
-
-.cardCategory {
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--c-gold);
-  margin: 0 0 14px;
-}
-
-.cardTitle {
+.emptyTitle {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: 21px;
-  line-height: 1.3;
-  margin: 0 0 12px;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.2;
+  margin: 0 0 16px;
+  text-wrap: balance;
 }
 
-.cardExcerpt {
-  font-size: 14px;
-  line-height: 1.7;
+.emptyBody {
+  font-size: 15px;
+  line-height: 1.75;
   color: var(--c-slate);
-  margin: 0 0 18px;
+  max-width: 46ch;
+  margin: 0 auto;
   text-wrap: pretty;
-}
-
-.cardMeta {
-  font-size: 12px;
-  color: var(--c-bronze);
 }

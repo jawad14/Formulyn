@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { chatUi, greeting, leadFlow, suggestions } from "@/data/chat";
+import { site } from "@/data/site";
 import { isValidEmail } from "@/lib/chat/validate";
 import type { ChatMessage } from "@/lib/chat/types";
 import styles from "./ChatWidget.module.css";
@@ -80,7 +81,7 @@ export function ChatWidget() {
         say(data.content);
       } catch {
         say(
-          "I couldn't reach the assistant just then. Try again, or email info@formulyn.com.au.",
+          `I couldn't reach the assistant just then. Try again, or email ${site.email}.`,
           true,
         );
       } finally {
@@ -218,12 +219,12 @@ export function ChatWidget() {
             ) : null}
 
             {showChips ? (
-              <div className={styles.chips}>
+              <div className={styles.starters}>
                 {suggestions.map((prompt) => (
                   <button
                     key={prompt}
                     type="button"
-                    className={styles.chip}
+                    className={styles.starter}
                     onClick={() => void ask(prompt)}
                   >
                     {prompt}

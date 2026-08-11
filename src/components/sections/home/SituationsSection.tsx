@@ -5,8 +5,8 @@ import styles from "./SituationsSection.module.css";
 
 export function SituationsSection() {
   return (
-    <section className={styles.section}>
-      <div className="shell">
+    <section className={`${styles.section} edgeSweep`}>
+      <div className="shell scrollSettle">
         <SectionHeading
           tone="light"
           eyebrow={situationsSection.eyebrow}
@@ -18,9 +18,17 @@ export function SituationsSection() {
         />
 
         <div className={styles.grid}>
-          {situations.map((situation) => (
-            <Reveal key={situation.quote} className={styles.card}>
-              <p className={styles.label}>The situation</p>
+          {situations.map((situation, index) => (
+            <Reveal
+              key={situation.quote}
+              className={styles.card}
+              from="scale"
+              delay={index * 110}
+            >
+              <p className={styles.head}>
+                <span className={styles.index}>{situation.index}</span>
+                <span className={styles.label}>The situation</span>
+              </p>
               <h3 className={styles.quote}>{situation.quote}</h3>
               <p className={styles.problem}>{situation.problem}</p>
               <div className={styles.response}>

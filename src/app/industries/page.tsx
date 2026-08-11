@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { industriesHero } from "@/data/industries";
 import { PageHero } from "@/components/ui/PageHero";
-import { IndustryGrid } from "@/components/sections/industries/IndustryGrid";
+import { IndustryShowcase } from "@/components/sections/industries/IndustryShowcase";
 import { CtaBanner } from "@/components/layout/CtaBanner";
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export default function IndustriesPage() {
         body={industriesHero.body}
         headingMeasure={16}
       />
-      <IndustryGrid />
+      <IndustryShowcase />
       <CtaBanner />
     </>
   );

@@ -69,6 +69,25 @@
   font-weight: 600;
 }
 
+/* Touch target grown past the 15px text box, without disturbing the score
+   block it sits under — see the same treatment on the services grid. */
+@media (max-width: 860px) {
+  .scoreLink {
+    position: relative;
+    display: inline-block;
+  }
+
+  .scoreLink::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 44px;
+    transform: translateY(-50%);
+  }
+}
+
 /* ---- Cards --------------------------------------------------------- */
 
 .grid {

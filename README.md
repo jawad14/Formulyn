@@ -40,7 +40,7 @@ src/
 │   ├── home.ts               # hero, stats, situations, mandates, cases, reviews
 │   ├── process.ts            # the four phases + timeline proportions
 │   ├── industries.ts         # the seven categories
-│   ├── journal.ts            # featured post, post grid, newsletter
+│   ├── journal.ts            # hero, newsletter — posts load from content/journal.json
 │   ├── about.ts              # narrative + principles
 │   └── contact.ts            # contact page + the closing CTA banner
 │
@@ -56,6 +56,9 @@ src/
 │   └── globals.css           # reset, base type, .shell, .srOnly
 │
 └── hooks/
+
+content/
+└── journal.json              # the journal posts — instructions at the top of the file
 
 design/                       # reference only — excluded from the build
 ├── Formulyn Website.dc.html  # the approved prototype this port is checked against
@@ -73,7 +76,8 @@ by CSS Modules, so a class name can never leak between sections.
 | Task | File |
 | --- | --- |
 | Change any copy on the site | the matching file in `src/data/` |
-| Add a case study, review, post or industry | push an item onto the array in `src/data/` |
+| Add a case study, review or industry | push an item onto the array in `src/data/` |
+| Add a journal post | copy an entry in `content/journal.json`, newest at the top |
 | Change a brand colour or font | `src/styles/tokens.css` |
 | Add or reorder a nav item | `navLinks` in `src/data/site.ts` |
 | Add a page | new folder in `src/app/`, section components in `src/components/sections/` |
@@ -123,15 +127,22 @@ src/
 │   ├── provider.ts            # <- the swap point: demo vs live
 │   ├── live-provider.ts       # adapter for your API
 │   ├── demo-provider.ts       # keyword lookup over data/chat.ts
-│   ├── leads.ts               # <- the swap point for lead delivery
+│   ├── leads.ts               # <- the one destination for lead delivery
+│   ├── lead-email.ts          # Resend send + the notification template
 │   └── validate.ts
 ├── components/chat/ChatWidget.tsx
 └── data/chat.ts               # all copy + the demo Q&A
 ```
 
-Leads go to `LEADS_WEBHOOK_URL` if set; otherwise they are only logged
-server-side. **Logs are not durable storage** — set a real destination before
-launch, and point the `/contact` and newsletter forms at the same place.
+The brief form on `/contact`, the chat widget and the newsletter signup all
+post to `/api/leads`, which calls `deliverLead()` — so there is one destination
+to maintain.
+
+Leads are emailed to `LEADS_EMAIL_TO` (default: `site.email`) via Resend, with
+the visitor's address as reply-to. Set `RESEND_API_KEY` to switch this on;
+without it the lead is only logged server-side. **Logs are not durable
+storage** — set the key before launch. `LEADS_WEBHOOK_URL` still works as an
+optional fire-and-forget extra hop for a CRM. See `.env.example`.
 
 ## Not yet wired up
 

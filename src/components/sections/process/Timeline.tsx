@@ -3,7 +3,7 @@ import { timeline } from "@/data/process";
 import { Reveal } from "@/components/ui/Reveal";
 import styles from "./Timeline.module.css";
 
-/** Proportional week bar sitting above the phase grid. */
+/** Proportional week bar sitting above the step grid. */
 export function Timeline() {
   return (
     <Reveal className={styles.timeline}>

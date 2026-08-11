@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ctaBanner } from "@/data/contact";
+import { AnimatedText } from "@/components/ui/AnimatedText";
 import { Reveal } from "@/components/ui/Reveal";
 import { Stop } from "@/components/ui/Stop";
 import styles from "./CtaBanner.module.css";
@@ -10,18 +11,29 @@ import styles from "./CtaBanner.module.css";
  */
 export function CtaBanner() {
   return (
-    <section className={styles.section}>
-      <Reveal className={styles.inner}>
-        <p className={styles.eyebrow}>{ctaBanner.eyebrow}</p>
-        <h2 className={styles.heading}>
-          {ctaBanner.heading}
-          <Stop />
-        </h2>
-        <p className={styles.body}>{ctaBanner.body}</p>
-        <Link href={ctaBanner.cta.href} className={styles.cta}>
-          {ctaBanner.cta.label}
-        </Link>
-      </Reveal>
+    <section className={`${styles.section} edgeSweep`}>
+      <div className={`${styles.inner} scrollSettle`}>
+        <Reveal as="p" className={styles.eyebrow}>
+          {ctaBanner.eyebrow}
+        </Reveal>
+        <AnimatedText
+          as="h2"
+          className={styles.heading}
+          text={ctaBanner.heading}
+          trailing={<Stop />}
+          delay={110}
+          stagger={60}
+        />
+        <Reveal as="p" className={styles.body} delay={260}>
+          {ctaBanner.body}
+        </Reveal>
+        {/* Last thing to arrive, so the eye finishes on the button. */}
+        <Reveal delay={380} from="scale">
+          <Link href={ctaBanner.cta.href} className={styles.cta}>
+            {ctaBanner.cta.label}
+          </Link>
+        </Reveal>
+      </div>
     </section>
   );
 }

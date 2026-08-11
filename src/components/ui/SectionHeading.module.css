@@ -22,7 +22,13 @@
 
 .heading {
   font-family: var(--font-display);
-  font-weight: 500;
+  /*
+   * 600, not 500: Century Gothic — first in the display stack, and installed on
+   * most Windows machines — ships Regular and Bold only, so a 500 renders as
+   * Regular and the heading reads thin. 600 resolves to its Bold, and to Jost
+   * SemiBold everywhere the local font is absent.
+   */
+  font-weight: 600;
   font-size: var(--heading-size, clamp(34px, 4.2vw, 56px));
   letter-spacing: -0.015em;
   margin: 0;

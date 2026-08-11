@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { footerBlurb, footerPracticeLinks, site } from "@/data/site";
 import { Stop } from "@/components/ui/Stop";
+import { LinkedIn } from "@/components/ui/icons";
 import styles from "./Footer.module.css";
 
 export function Footer() {
@@ -41,9 +42,23 @@ export function Footer() {
             <a href={`mailto:${site.email}`} className={styles.goldLink}>
               {site.email}
             </a>
-            <Link href="/contact" className={styles.goldLink}>
+            {/* Anchored on the brief form. The footer is on every route,
+                /contact included, where a bare /contact href went nowhere. */}
+            <Link href="/contact#brief" className={styles.goldLink}>
               Book a 30-min discovery call →
             </Link>
+            {/* Named for the company rather than the network — the founder's
+                own profile is linked on /about, and "LinkedIn" alone would not
+                tell the two apart out of context. */}
+            <a
+              href={site.linkedin}
+              className={styles.social}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <LinkedIn className={styles.socialMark} />
+              {site.name} on LinkedIn
+            </a>
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import { Inter, Jost } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ChatWidget } from "@/components/chat/ChatWidget";
+import { PageTransition } from "@/components/ui/PageTransition";
 import { site } from "@/data/site";
 import "@/styles/globals.css";
 
@@ -33,7 +34,15 @@ export const metadata: Metadata = {
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
     locale: "en_AU",
+    url: site.url,
   },
+  twitter: {
+    card: "summary_large_image",
+    site: "@formulyn",
+    title: `${site.name} — ${site.tagline}`,
+    description: site.description,
+  },
+  alternates: { canonical: "/" },
 };
 
 export default function RootLayout({
@@ -43,7 +52,9 @@ export default function RootLayout({
     <html lang="en" className={`${jost.variable} ${inter.variable}`}>
       <body>
         <Header />
-        <main>{children}</main>
+        <main>
+          <PageTransition>{children}</PageTransition>
+        </main>
         <Footer />
         <ChatWidget />
       </body>

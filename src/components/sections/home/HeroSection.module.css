@@ -38,8 +38,16 @@
 
 /* ---- Copy column --------------------------------------------------- */
 
+/*
+ * The column enters as a sequence rather than as one block: eyebrow, then the
+ * heading setting itself word by word (handled by AnimatedText), then the
+ * paragraph and the buttons. The delays below are picked to overlap the tail
+ * of the heading so the whole thing reads as one movement.
+ */
+
 .copy {
-  animation: fHeroIn 1s var(--ease-out-expo) both;
+  /* Grid items default to min-content width; let the long heading wrap. */
+  min-width: 0;
 }
 
 .eyebrow {
@@ -47,6 +55,7 @@
   align-items: center;
   gap: 10px;
   margin: 0 0 clamp(18px, 2.5vw, 26px);
+  animation: fHeroIn 0.8s var(--ease-out-expo) 0.05s both;
 }
 
 .eyebrowDot {
@@ -82,12 +91,14 @@
   max-width: 520px;
   margin: 0 0 clamp(26px, 3.5vw, 36px);
   text-wrap: pretty;
+  animation: fHeroIn 0.9s var(--ease-out-expo) 0.55s both;
 }
 
 .actions {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  animation: fHeroIn 0.9s var(--ease-out-expo) 0.68s both;
 }
 
 .ctaPrimary {
@@ -102,12 +113,17 @@
   background: var(--c-gold);
   padding: 16px 26px;
   border-radius: 2px;
-  transition: background 0.25s;
+  transition:
+    background 0.25s,
+    transform 0.25s var(--ease-out-expo),
+    box-shadow 0.25s;
 }
 
 .ctaPrimary:hover {
   background: var(--c-gold-light);
   color: var(--c-ink);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px -14px rgba(201, 150, 63, 0.8);
 }
 
 .ctaSecondary {
@@ -122,12 +138,16 @@
   border: 1px solid var(--line-dark-nav);
   padding: 16px 26px;
   border-radius: 2px;
-  transition: border-color 0.25s;
+  transition:
+    border-color 0.25s,
+    color 0.25s,
+    transform 0.25s var(--ease-out-expo);
 }
 
 .ctaSecondary:hover {
   border-color: var(--c-gold);
   color: var(--c-gold-light);
+  transform: translateY(-2px);
 }
 
 /* ---- Visual column ------------------------------------------------- */
@@ -196,10 +216,13 @@
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
 
+/* Counted in one after the other, left to right, as the copy finishes. */
 .stat {
   padding: clamp(18px, 3vw, 26px) clamp(16px, 2.5vw, 24px);
   border-right: 1px solid var(--line-dark);
   border-bottom: 1px solid var(--line-dark);
+  animation: fHeroIn 0.8s var(--ease-out-expo)
+    calc(0.8s + var(--stat-index, 0) * 0.09s) both;
 }
 
 .stat:last-child {
@@ -228,6 +251,7 @@
   border-top: 1px solid var(--line-dark);
   margin: 0 calc(var(--gutter) * -1);
   padding: 16px 0;
+  animation: fHeroIn 0.9s var(--ease-out-expo) 1.15s both;
 }
 
 .marqueeTrack {
@@ -236,6 +260,24 @@
   width: max-content;
   animation: fMarquee 36s linear infinite;
   white-space: nowrap;
+}
+
+/*
+ * Declared here rather than in the shared keyframes.css: CSS Modules rewrites
+ * animation names to module-scoped ones, so a bare reference to a keyframe
+ * defined in a global stylesheet resolves to nothing and the track sits still.
+ *
+ * The track holds two identical copies of the list, so travelling exactly half
+ * its width lands the second copy where the first began — the loop is seamless
+ * and the categories read right to left.
+ */
+@keyframes fMarquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
 }
 
 .marqueeItem {

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { navCta, navLinks, site } from "@/data/site";
 import { Stop } from "@/components/ui/Stop";
+import { NavAccordion, NavDropdown } from "./NavDropdown";
 import styles from "./Header.module.css";
 
 export function Header() {
@@ -15,7 +16,7 @@ export function Header() {
 
   // Collapse the drawer when the viewport widens back to the full nav.
   useEffect(() => {
-    const query = window.matchMedia("(min-width: 900px)");
+    const query = window.matchMedia("(min-width: 1100px)");
     const sync = () => {
       if (query.matches) setMenuOpen(false);
     };
@@ -33,16 +34,26 @@ export function Header() {
       </Link>
 
       <div className={styles.desktop}>
-        {navLinks.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className={styles.link}
-            aria-current={isCurrent(link.href) ? "page" : undefined}
-          >
-            {link.label}
-          </Link>
-        ))}
+        {navLinks.map((link) =>
+          link.children ? (
+            <NavDropdown
+              key={link.href}
+              label={link.label}
+              href={link.href}
+              items={link.children}
+              overviewLabel={link.overviewLabel}
+            />
+          ) : (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={styles.link}
+              aria-current={isCurrent(link.href) ? "page" : undefined}
+            >
+              {link.label}
+            </Link>
+          ),
+        )}
         <Link href={navCta.href} className={styles.cta}>
           {navCta.label}
         </Link>
@@ -69,19 +80,34 @@ export function Header() {
         </button>
       </div>
 
+      <div className={styles.progress} aria-hidden="true">
+        <span className={styles.progressBar} />
+      </div>
+
       {menuOpen ? (
         <div className={styles.drawer}>
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={styles.drawerLink}
-              aria-current={isCurrent(link.href) ? "page" : undefined}
-              onClick={closeMenu}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) =>
+            link.children ? (
+              <NavAccordion
+                key={link.href}
+                label={link.label}
+                href={link.href}
+                items={link.children}
+                overviewLabel={link.overviewLabel}
+                onNavigate={closeMenu}
+              />
+            ) : (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={styles.drawerLink}
+                aria-current={isCurrent(link.href) ? "page" : undefined}
+                onClick={closeMenu}
+              >
+                {link.label}
+              </Link>
+            ),
+          )}
         </div>
       ) : null}
     </nav>
