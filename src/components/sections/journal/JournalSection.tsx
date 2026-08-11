@@ -33,10 +33,10 @@ export function JournalSection() {
   const hasContent = featuredPost !== null || posts.length > 0;
 
   return (
-    <section className={styles.section}>
-      <div className="shell">
+    <section className={`${styles.section} edgeSweep`}>
+      <div className="shell scrollSettle">
         {featuredPost ? (
-          <Reveal as="article" className={styles.featured}>
+          <Reveal as="article" className={styles.featured} from="scale">
             <div>
               <p className={styles.featuredEyebrow}>{featuredPost.eyebrow}</p>
               <h2 className={styles.featuredTitle}>
@@ -64,8 +64,13 @@ export function JournalSection() {
 
         {posts.length > 0 ? (
           <div className={styles.grid}>
-            {posts.map((post) => (
-              <Reveal as="article" key={post.title} className={styles.card}>
+            {posts.map((post, index) => (
+              <Reveal
+                as="article"
+                key={post.title}
+                className={styles.card}
+                delay={(index % 3) * 90}
+              >
                 <div className={styles.cardThumb}>{post.imageLabel}</div>
                 <div className={styles.cardBody}>
                   <p className={styles.cardCategory}>{post.category}</p>
