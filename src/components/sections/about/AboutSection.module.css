@@ -50,6 +50,52 @@
   margin-bottom: 0;
 }
 
+/* ---- Company LinkedIn ----------------------------------------------- */
+
+/* The founder's link on the same page, minus the centring — this one sits at
+   the foot of a left-aligned column rather than under the portrait. */
+.social {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 14px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--c-graphite);
+  border-bottom: 1px solid var(--line-gold-strong);
+  padding-bottom: 4px;
+  transition: color 0.25s;
+}
+
+.social:hover {
+  color: var(--c-bronze);
+}
+
+.socialMark {
+  color: var(--c-bronze);
+  flex-shrink: 0;
+}
+
+/* Touch target grown past the 21px text box, without disturbing the
+   mark/label gap — same treatment as the founder link. */
+@media (max-width: 860px) {
+  .social {
+    position: relative;
+  }
+
+  .social::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 44px;
+    transform: translateY(-50%);
+  }
+}
+
 /* ---- Practice ledger ------------------------------------------------ */
 
 .ledger {

@@ -84,6 +84,26 @@
   font-size: 14px;
 }
 
+/* Sits in the Consultancy column under the discovery-call link, so it takes
+   the same 14px body size and carries the mark in gold to mark it external. */
+.social {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+  color: var(--c-sage);
+  transition: color 0.25s;
+}
+
+.social:hover {
+  color: var(--c-gold-light);
+}
+
+.socialMark {
+  color: var(--c-gold);
+  flex-shrink: 0;
+}
+
 .legal {
   max-width: var(--page-max);
   margin: 48px auto 0;

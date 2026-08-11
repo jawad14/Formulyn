@@ -44,6 +44,9 @@ export const site = {
   location: "Brisbane, Australia",
   locationLong: "Brisbane, Australia · Serving clients globally",
   googleReviewsUrl: "https://www.google.com/search?q=Formulyn+Brisbane",
+  /** The company page, not the founder's profile — that one lives on `founder`
+      in data/about.ts. Also emitted as `sameAs` on the Organization JSON-LD. */
+  linkedin: "https://www.linkedin.com/company/formulyn/",
   availability: "Accepting briefs for Q3",
   copyright: "© 2026 Formulyn. All rights reserved.",
 } as const;

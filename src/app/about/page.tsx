@@ -14,8 +14,9 @@ export const metadata: Metadata = {
 };
 
 /**
- * `sameAs` on the founder ties this page's person to the same real person as
- * the LinkedIn profile, rather than leaving a search engine to guess.
+ * `sameAs` ties each node to the same real entity as its LinkedIn page —
+ * the company page on the organisation, the founder's profile on the person —
+ * rather than leaving a search engine to guess.
  */
 const organisationLd = {
   "@context": "https://schema.org",
@@ -24,6 +25,7 @@ const organisationLd = {
   url: site.url,
   email: site.email,
   description: site.description,
+  sameAs: [site.linkedin],
   address: {
     "@type": "PostalAddress",
     addressLocality: "Brisbane",
