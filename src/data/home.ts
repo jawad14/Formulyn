@@ -190,8 +190,8 @@ export const caseStudies: CaseStudy[] = [
       "A frozen-format collagen product, engineered to sidestep therapeutic classification",
     body: "The brief called for a popsicle-format marine collagen stick — formulated deliberately as a food product, not a therapeutic good, to simplify the regulatory pathway.",
     image: {
-      src: "/case-collagen-frozen.webp",
-      alt: "A frozen collagen block standing on a dark slate slab, laboratory glassware out of focus behind it",
+      src: "/case-collagen-frozen.jpg",
+      alt: "A frozen collagen popsicle standing on a dark slate surface",
     },
     metrics: [
       { value: "2", label: "Formulation options" },
@@ -213,7 +213,7 @@ export const caseStudies: CaseStudy[] = [
     title: "An adaptogenic drink built from concept to formula",
     body: "A functional adaptogenic beverage taken from concept through to a deliverable formula.",
     image: {
-      src: "/case-adaptogenic-drink.webp",
+      src: "/case-adaptogenic-drink.jpg",
       alt: "A glass of steaming amber adaptogenic infusion on dark slate, with ginseng root, a beaker and flasks behind",
     },
     metrics: [{ value: "Ready", label: "For production" }],
