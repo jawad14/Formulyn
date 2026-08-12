@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { footerBlurb, footerPracticeLinks, site } from "@/data/site";
 import { Stop } from "@/components/ui/Stop";
-import { LinkedIn } from "@/components/ui/icons";
+import { Instagram, LinkedIn } from "@/components/ui/icons";
 import styles from "./Footer.module.css";
 
 export function Footer() {
@@ -58,6 +58,15 @@ export function Footer() {
             >
               <LinkedIn className={styles.socialMark} />
               {site.name} on LinkedIn
+            </a>
+            <a
+              href={site.instagram}
+              className={styles.social}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Instagram className={styles.socialMark} />
+              {site.name} on Instagram
             </a>
           </div>
         </div>

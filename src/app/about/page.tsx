@@ -25,7 +25,7 @@ const organisationLd = {
   url: site.url,
   email: site.email,
   description: site.description,
-  sameAs: [site.linkedin],
+  sameAs: [site.linkedin, site.instagram],
   address: {
     "@type": "PostalAddress",
     addressLocality: "Brisbane",
