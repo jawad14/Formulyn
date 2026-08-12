@@ -223,6 +223,8 @@ export const caseStudies: CaseStudy[] = [
 export const testimonialsSection = {
   eyebrow: "Field Notes · Verified Google Reviews",
   heading: "What clients say",
+  /** Both are fallbacks — the live listing's score and total replace them
+      once GOOGLE_PLACE_ID is set. */
   rating: "5.0",
   reviewCount: "7 curated reviews",
 } as const;
@@ -230,9 +232,20 @@ export const testimonialsSection = {
 export type Testimonial = {
   quote: string;
   attribution: string;
+  /** Stars drawn on the card, 1–5. Omit for the five-star default. */
+  rating?: number;
+  /** Link to the review on Google. Set on synced reviews, not curated ones. */
+  href?: string;
 };
 
-/** Verified Google reviews, as published on formulyn.com.au. */
+/**
+ * Verified Google reviews, as published on formulyn.com.au.
+ *
+ * Hand-curated, and the fallback whenever the Places API is unset or
+ * unreachable — so this list is what the homepage shows on its own. Reviews
+ * Google returns that are not already here are appended to it at render time;
+ * see src/lib/reviews/index.ts.
+ */
 export const testimonials: Testimonial[] = [
   {
     quote: `"Formulyn are masters at what they do. Glad I found them."`,

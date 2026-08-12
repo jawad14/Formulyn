@@ -66,6 +66,34 @@ export function ServiceDetailSections({ detail }: { detail: ServiceDetail }) {
           </Reveal>
         </div>
       </section>
+
+      {/*
+        Native <details> rather than a scripted accordion: it opens without
+        JavaScript, carries its own expanded state for assistive technology,
+        and is what the browser's find-in-page can open on a match.
+      */}
+      <section className={`${styles.faq} edgeSweep`}>
+        <div className="shell scrollSettle">
+          <SectionHeading
+            eyebrow="Questions"
+            heading={detail.faqHeading}
+            tone="light"
+          />
+          <div className={styles.faqList}>
+            {detail.faqs.map((faq, index) => (
+              <Reveal
+                as="details"
+                key={faq.question}
+                className={styles.faqItem}
+                delay={index * 60}
+              >
+                <summary className={styles.faqQuestion}>{faq.question}</summary>
+                <p className={styles.faqAnswer}>{faq.answer}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }

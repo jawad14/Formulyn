@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import type { ServiceDetail } from "@/data/services";
 import { getServiceDetail, serviceDetails } from "@/data/services";
 import { PageHero } from "@/components/ui/PageHero";
 import { ServiceDetailSections } from "@/components/sections/services/ServiceDetailSections";
@@ -26,6 +27,22 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   };
 }
 
+/**
+ * The questions on the page, restated for search engines. Marking them up is
+ * what lets the answers surface in a result rather than only on the page.
+ */
+function faqLd(detail: ServiceDetail) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: detail.faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
+    })),
+  };
+}
+
 export default async function ServiceDetailPage({ params }: Params) {
   const { slug } = await params;
   const detail = getServiceDetail(slug);
@@ -33,6 +50,10 @@ export default async function ServiceDetailPage({ params }: Params) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd(detail)) }}
+      />
       <PageHero
         eyebrow={detail.eyebrow}
         heading={detail.heading}

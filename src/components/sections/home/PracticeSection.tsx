@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { mandates, practiceSection } from "@/data/home";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SiteLink } from "@/components/ui/SiteLink";
 import styles from "./PracticeSection.module.css";
 
 export function PracticeSection() {
@@ -35,10 +35,10 @@ export function PracticeSection() {
             three led to the same page, and read identically to a screen
             reader without a card-specific suffix to tell them apart. */}
         <Reveal className={styles.moreRow} delay={mandates.length * 90}>
-          <Link href={practiceSection.more.href} className={styles.more}>
+          <SiteLink href={practiceSection.more.href} className={styles.more}>
             {practiceSection.more.label}
             <span aria-hidden="true"> →</span>
-          </Link>
+          </SiteLink>
         </Reveal>
       </div>
     </section>

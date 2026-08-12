@@ -1,8 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
 import type { CSSProperties } from "react";
 import { hero, heroStats, marqueeItems } from "@/data/home";
 import { AnimatedText } from "@/components/ui/AnimatedText";
+import { SiteLink } from "@/components/ui/SiteLink";
 import { Stop } from "@/components/ui/Stop";
 import styles from "./HeroSection.module.css";
 
@@ -34,12 +34,12 @@ export function HeroSection() {
           <p className={styles.body}>{hero.body}</p>
 
           <div className={styles.actions}>
-            <Link href={hero.primaryCta.href} className={styles.ctaPrimary}>
+            <SiteLink href={hero.primaryCta.href} className={styles.ctaPrimary}>
               {hero.primaryCta.label}
-            </Link>
-            <Link href={hero.secondaryCta.href} className={styles.ctaSecondary}>
+            </SiteLink>
+            <SiteLink href={hero.secondaryCta.href} className={styles.ctaSecondary}>
               {hero.secondaryCta.label}
-            </Link>
+            </SiteLink>
           </div>
         </div>
 

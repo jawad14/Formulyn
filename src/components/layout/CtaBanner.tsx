@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { ctaBanner } from "@/data/contact";
 import { AnimatedText } from "@/components/ui/AnimatedText";
 import { Reveal } from "@/components/ui/Reveal";
+import { SiteLink } from "@/components/ui/SiteLink";
 import { Stop } from "@/components/ui/Stop";
 import styles from "./CtaBanner.module.css";
 
@@ -29,9 +29,9 @@ export function CtaBanner() {
         </Reveal>
         {/* Last thing to arrive, so the eye finishes on the button. */}
         <Reveal delay={380} from="scale">
-          <Link href={ctaBanner.cta.href} className={styles.cta}>
+          <SiteLink href={ctaBanner.cta.href} className={styles.cta}>
             {ctaBanner.cta.label}
-          </Link>
+          </SiteLink>
         </Reveal>
       </div>
     </section>

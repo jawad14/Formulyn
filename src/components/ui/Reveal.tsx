@@ -18,7 +18,8 @@ type RevealTag =
   | "figure"
   | "aside"
   | "p"
-  | "li";
+  | "li"
+  | "details";
 
 /** Direction the element travels in from. */
 type RevealFrom = "up" | "left" | "right" | "scale";

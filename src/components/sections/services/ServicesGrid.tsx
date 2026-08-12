@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { mandates } from "@/data/services";
 import { Reveal } from "@/components/ui/Reveal";
+import { SiteLink } from "@/components/ui/SiteLink";
 import styles from "./ServicesGrid.module.css";
 
 /** The four mandates. Cards with a detail page link through to it. */
@@ -20,9 +20,9 @@ export function ServicesGrid() {
             <p className={styles.tagline}>{mandate.tagline}</p>
             <p className={styles.body}>{mandate.body}</p>
             {mandate.href ? (
-              <Link href={mandate.href} className={styles.link}>
+              <SiteLink href={mandate.href} className={styles.link}>
                 Read the detail →
-              </Link>
+              </SiteLink>
             ) : null}
           </Reveal>
         ))}

@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { footerBlurb, footerPracticeLinks, site } from "@/data/site";
+import { SiteLink } from "@/components/ui/SiteLink";
 import { Stop } from "@/components/ui/Stop";
 import { Instagram, LinkedIn } from "@/components/ui/icons";
 import styles from "./Footer.module.css";
@@ -24,13 +24,13 @@ export function Footer() {
           <h2 className={styles.columnTitle}>Practice</h2>
           <div className={styles.columnList}>
             {footerPracticeLinks.map((link) => (
-              <Link
+              <SiteLink
                 key={link.href}
                 href={link.href}
                 className={styles.columnLink}
               >
                 {link.label}
-              </Link>
+              </SiteLink>
             ))}
           </div>
         </div>
@@ -44,9 +44,9 @@ export function Footer() {
             </a>
             {/* Anchored on the brief form. The footer is on every route,
                 /contact included, where a bare /contact href went nowhere. */}
-            <Link href="/contact#brief" className={styles.goldLink}>
+            <SiteLink href="/contact#brief" className={styles.goldLink}>
               Book a 30-min discovery call →
-            </Link>
+            </SiteLink>
             {/* Named for the company rather than the network — the founder's
                 own profile is linked on /about, and "LinkedIn" alone would not
                 tell the two apart out of context. */}

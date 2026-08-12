@@ -28,6 +28,9 @@ export type Lead = {
   email: string;
   brief: string;
   source: LeadSource;
+  /** Both optional: only the brief form asks for them. */
+  company?: string;
+  category?: string;
   /** Conversation leading up to the capture, for context. */
   transcript: ChatMessage[];
 };

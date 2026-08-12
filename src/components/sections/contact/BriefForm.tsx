@@ -12,9 +12,8 @@ type Status = "idle" | "sending" | "sent" | "error";
  * Brief intake. Posts to /api/leads — the same destination as the chat
  * widget's capture flow, so there is one place to maintain.
  *
- * /api/leads takes name, email and a single brief string, so the brand and
- * the category ride along as a header line on the brief rather than as
- * fields of their own.
+ * Brand and category are sent as their own fields; the lead email renders a
+ * labelled row for each. Both are optional, so either may be omitted.
  */
 export function BriefForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -38,13 +37,6 @@ export function BriefForm() {
       return;
     }
 
-    const header = [
-      company && `Brand: ${company}`,
-      category && `Category: ${category}`,
-    ]
-      .filter(Boolean)
-      .join(" · ");
-
     setStatus("sending");
     setError("");
 
@@ -55,7 +47,9 @@ export function BriefForm() {
         body: JSON.stringify({
           name: String(data.get("name") ?? "").trim(),
           email: String(data.get("email") ?? "").trim(),
-          brief: header ? `${header}\n\n${message}` : message,
+          brief: message,
+          company,
+          category,
           source: "contact-form",
         }),
       });

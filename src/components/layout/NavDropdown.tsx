@@ -13,11 +13,11 @@
  * Home / End and Escape are handled on top of that.
  */
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import type { NavChild } from "@/data/site";
 import { Caret, serviceIcons } from "@/components/ui/icons";
+import { SiteLink } from "@/components/ui/SiteLink";
 import styles from "./NavDropdown.module.css";
 
 /** Grace period for crossing the gap between the trigger and the panel. */
@@ -50,7 +50,7 @@ function ServiceRow({
 
   return (
     <li className={styles.row}>
-      <Link
+      <SiteLink
         ref={registerRef}
         href={item.href}
         className={`${styles.rowLink} ${variantClass}`}
@@ -68,7 +68,7 @@ function ServiceRow({
         <span className={styles.rowArrow} aria-hidden="true">
           →
         </span>
-      </Link>
+      </SiteLink>
     </li>
   );
 }
@@ -230,14 +230,14 @@ export function NavDropdown({
       >
         <div className={styles.panelHead}>
           <span className={styles.panelEyebrow}>{label}</span>
-          <Link
+          <SiteLink
             href={href}
             className={styles.panelAll}
             aria-current={pathname === href ? "page" : undefined}
             onClick={() => close()}
           >
             {overviewLabel ?? `All ${label}`} →
-          </Link>
+          </SiteLink>
         </div>
 
         <ul className={styles.list}>
@@ -306,14 +306,14 @@ export function NavAccordion({
               />
             ))}
           </ul>
-          <Link
+          <SiteLink
             href={href}
             className={styles.accOverview}
             aria-current={pathname === href ? "page" : undefined}
             onClick={onNavigate}
           >
             {overviewLabel ?? `All ${label}`} →
-          </Link>
+          </SiteLink>
         </div>
       </div>
     </div>

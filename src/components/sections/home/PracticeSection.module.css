@@ -1,7 +1,15 @@
 .section {
   background: var(--c-bone);
   color: var(--c-graphite);
-  padding: 0 var(--gutter) clamp(72px, 9vw, 128px);
+  /*
+   * The top padding clears the gold hairline. `edgeSweep` draws it at inset 0,
+   * so at a top padding of zero it landed on the eyebrow's own line box — the
+   * 12px caps start only a few pixels down from the top of that box, which put
+   * the rule through the lettering. Kept well under a full section gap: the
+   * section above already carries its own bottom padding, and this one is
+   * meant to read as following on rather than starting afresh.
+   */
+  padding: clamp(28px, 4vw, 40px) var(--gutter) clamp(72px, 9vw, 128px);
 }
 
 /* Hairline grid: the container draws top + left, each cell right + bottom. */

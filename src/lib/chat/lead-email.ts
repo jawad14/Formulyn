@@ -29,12 +29,6 @@ const SUBJECTS: Record<Lead["source"], string> = {
   newsletter: "Newsletter signup",
 };
 
-const SOURCE_LABELS: Record<Lead["source"], string> = {
-  chat: "Chat assistant",
-  "contact-form": "Brief form · /contact",
-  newsletter: "Newsletter · /journal",
-};
-
 /** Lead content is visitor-supplied, so it is escaped before it meets HTML. */
 function escapeHtml(value: string): string {
   return value
@@ -100,8 +94,9 @@ function renderHtml(lead: Lead): string {
         <tr><td style="padding:32px;">
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
             ${renderRow("Name", escapeHtml(lead.name))}
+            ${lead.company ? renderRow("Company", escapeHtml(lead.company)) : ""}
             ${renderRow("Email", mailto)}
-            ${renderRow("Source", SOURCE_LABELS[lead.source])}
+            ${lead.category ? renderRow("Category", escapeHtml(lead.category)) : ""}
             ${renderRow("Brief", toParagraphs(lead.brief))}
             ${renderTranscript(lead)}
           </table>
@@ -119,9 +114,10 @@ function renderText(lead: Lead): string {
   const lines = [
     `${SUBJECTS[lead.source]} — ${site.name}`,
     "",
-    `Name:   ${lead.name}`,
-    `Email:  ${lead.email}`,
-    `Source: ${SOURCE_LABELS[lead.source]}`,
+    `Name:     ${lead.name}`,
+    ...(lead.company ? [`Company:  ${lead.company}`] : []),
+    `Email:    ${lead.email}`,
+    ...(lead.category ? [`Category: ${lead.category}`] : []),
     "",
     "Brief:",
     lead.brief,

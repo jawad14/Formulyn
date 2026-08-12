@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import { industries, industriesCta } from "@/data/industries";
 import { Reveal } from "@/components/ui/Reveal";
+import { SiteLink } from "@/components/ui/SiteLink";
 import styles from "./IndustryShowcase.module.css";
 
 /**
@@ -81,9 +81,9 @@ export function IndustryShowcase() {
           </div>
           <div className={styles.ctaSide}>
             <p className={styles.ctaBody}>{industriesCta.body}</p>
-            <Link href={industriesCta.cta.href} className={styles.ctaLink}>
+            <SiteLink href={industriesCta.cta.href} className={styles.ctaLink}>
               {industriesCta.cta.label}
-            </Link>
+            </SiteLink>
           </div>
         </Reveal>
       </div>

@@ -12,6 +12,12 @@ function parseSource(value: unknown): LeadSource {
   return SOURCES.includes(value as LeadSource) ? (value as LeadSource) : "chat";
 }
 
+/** Company and category are optional, so anything unusable becomes undefined. */
+function parseOptional(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined;
+  return value.trim().slice(0, MAX_NAME) || undefined;
+}
+
 export async function POST(request: Request) {
   let body: unknown;
   try {
@@ -20,10 +26,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const { name, email, brief, source } = (body ?? {}) as Record<
-    string,
-    unknown
-  >;
+  const { name, email, brief, source, company, category } = (body ??
+    {}) as Record<string, unknown>;
 
   if (typeof name !== "string" || !name.trim()) {
     return NextResponse.json({ error: "Name is required" }, { status: 400 });
@@ -44,6 +48,8 @@ export async function POST(request: Request) {
       email: email.trim().slice(0, MAX_NAME),
       brief: brief.trim().slice(0, MAX_MESSAGE_LENGTH),
       source: parseSource(source),
+      company: parseOptional(company),
+      category: parseOptional(category),
       transcript: parseMessages(body) ?? [],
     });
     return NextResponse.json({ ok: true });

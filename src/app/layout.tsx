@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ChatWidget } from "@/components/chat/ChatWidget";
 import { PageTransition } from "@/components/ui/PageTransition";
+import { RouteRestartProvider } from "@/components/ui/RouteRestart";
 import { site } from "@/data/site";
 import "@/styles/globals.css";
 
@@ -51,11 +52,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jost.variable} ${inter.variable}`}>
       <body>
-        <Header />
-        <main>
-          <PageTransition>{children}</PageTransition>
-        </main>
-        <Footer />
+        {/* Spans the chrome as well as the page: the header and the footer are
+            where a link back to the current route is most often clicked. */}
+        <RouteRestartProvider>
+          <Header />
+          <main>
+            <PageTransition>{children}</PageTransition>
+          </main>
+          <Footer />
+        </RouteRestartProvider>
         <ChatWidget />
       </body>
     </html>

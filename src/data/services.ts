@@ -61,6 +61,16 @@ export type ServiceDetail = {
   processHeading: string;
   process: { step: string; title: string; body: string }[];
   audience: string;
+  faqHeading: string;
+  /**
+   * Answers are drawn from the assistant's knowledge base in data/chat-prompt.ts
+   * so the page and the bot never contradict each other, and they hold to the
+   * same rules it does: no fixed prices, no guaranteed dates, nothing asserted
+   * that the practice has not committed to elsewhere. Edit both together.
+   *
+   * Also emitted as FAQPage structured data by the detail page.
+   */
+  faqs: { question: string; answer: string }[];
 };
 
 export const serviceDetails: ServiceDetail[] = [
@@ -124,6 +134,39 @@ export const serviceDetails: ServiceDetail[] = [
     ],
     audience:
       "For founders, brand managers and entrepreneurs developing a custom product — particularly halal or plant-based lines.",
+    faqHeading: "Questions we're asked before a brief",
+    faqs: [
+      {
+        question: "Do I need a finished concept before we start?",
+        answer:
+          "No. Most briefs arrive as an idea and a market rather than a specification, and no scientific background is assumed — every decision is explained in plain terms. Bring the concept, the competitors and the claims you want to make, and the discovery call turns them into a scope.",
+      },
+      {
+        question: "Do you manufacture the product as well?",
+        answer:
+          "No, and that is deliberate. We sit upstream of manufacturing and take nothing from it, so an active is chosen because the evidence supports it — not because a particular plant already stocks it.",
+      },
+      {
+        question: "Who owns the formula at the end?",
+        answer:
+          "You do. Full IP is assigned to you at handover, and that includes the reasoning behind every ingredient and dose rather than the final matrix alone. The formula is yours to take to any manufacturer.",
+      },
+      {
+        question: "Can you work on a product that already exists?",
+        answer:
+          "Yes. Reformulation and optimisation run through the same formulation step — whether the goal is a cleaner label, a better-absorbed form of an active, or a product that has stopped performing against its competitors.",
+      },
+      {
+        question: "Is stability testing included?",
+        answer:
+          "We design and specify the testing; an independent laboratory runs it. It is an optional add-on, quoted separately, so a brief that does not need it is not paying for it.",
+      },
+      {
+        question: "How long does it take, and how is it priced?",
+        answer:
+          "Indicatively around sixteen weeks end to end, though that moves with category, complexity and testing. Scope and price are fixed per phase and confirmed after the discovery call, with milestone payments rather than a lump sum.",
+      },
+    ],
   },
   {
     slug: "regulatory-compliance",
@@ -185,6 +228,39 @@ export const serviceDetails: ServiceDetail[] = [
     ],
     audience:
       "For Australian brands planning to export, international brands entering Australia, and founders launching across several markets at once.",
+    faqHeading: "Questions we're asked about market entry",
+    faqs: [
+      {
+        question: "Which markets can you take a product into?",
+        answer:
+          "The TGA in Australia, CPNP in the European Union, SCPN in the United Kingdom, SFDA across the GCC, and the Southeast Asian regulators in Malaysia, Indonesia and Singapore. Several markets can run as one coordinated strategy rather than one after another.",
+      },
+      {
+        question: "Can you tell me which claims I am allowed to make?",
+        answer:
+          "Yes. Claims are graded against the published literature and against each regulator's permitted indications, so you know which survive scrutiny and which need rewording — before the label goes to print rather than after.",
+      },
+      {
+        question: "What happens if an ingredient is not permitted in my target market?",
+        answer:
+          "It is flagged during the ingredient review and we propose alternatives that hold the formula's intent. Finding it at submission, with packaging already printed, is what costs months.",
+      },
+      {
+        question: "Do you lodge the submission, or only prepare it?",
+        answer:
+          "Both. The dossier is prepared and lodged through the relevant portal, and the documentation stays with you afterwards.",
+      },
+      {
+        question: "How long does registration take?",
+        answer:
+          "It depends on the market and on the regulator's own queue. We scope an indicative timeline per jurisdiction in the proposal rather than promise a date that is not ours to control.",
+      },
+      {
+        question: "Can you review a formula we already have?",
+        answer:
+          "Yes. An existing formula can be screened against a target market's permitted lists and its claims assessed against the evidence, before you commit to the launch.",
+      },
+    ],
   },
   {
     slug: "manufacturer-sourcing",
@@ -246,6 +322,39 @@ export const serviceDetails: ServiceDetail[] = [
     ],
     audience:
       "For founders who need a manufacturer identified, brands wanting an independent review of their current one, and anyone needing a TGA-compliant alternative at short notice.",
+    faqHeading: "Questions we're asked about sourcing",
+    faqs: [
+      {
+        question: "Do you take a commission from the manufacturers you recommend?",
+        answer:
+          "No, and that is the reason the shortlist is worth reading. We take nothing from manufacturing, so a plant appears on it because it fits the brief — never because it pays to be there.",
+      },
+      {
+        question: "Am I obliged to use one of your manufacturers?",
+        answer:
+          "No. The shortlist is a recommendation, not a requirement. You are free to use your own, and the formulation can be built to that plant's capabilities instead.",
+      },
+      {
+        question: "How do you know a manufacturer is legitimate?",
+        answer:
+          "TGA GMP clearance is verified before your formula is sent anywhere, alongside a capability check that the plant can actually run your format, your volume and any certification the line depends on.",
+      },
+      {
+        question: "Will I know the minimum order quantities before I commit?",
+        answer:
+          "Yes. MOQ sits in the shortlist beside cost, location and packaging, so the commercial picture is visible before you open a conversation with anyone.",
+      },
+      {
+        question: "Can you help if I am considering manufacturing offshore?",
+        answer:
+          "Yes, China included, with the compliance trade-offs stated plainly at the outset rather than discovered later at the border.",
+      },
+      {
+        question: "What if my current manufacturer is not working out?",
+        answer:
+          "The incumbent is reviewed independently and, where it is warranted, we identify a TGA-compliant alternative — including at short notice when supply is at risk.",
+      },
+    ],
   },
 ];
 

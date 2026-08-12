@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { navCta, navLinks, site } from "@/data/site";
+import { SiteLink } from "@/components/ui/SiteLink";
 import { Stop } from "@/components/ui/Stop";
 import { NavAccordion, NavDropdown } from "./NavDropdown";
 import styles from "./Header.module.css";
@@ -28,10 +28,10 @@ export function Header() {
 
   return (
     <nav className={styles.nav}>
-      <Link href="/" className={styles.wordmark} onClick={closeMenu}>
+      <SiteLink href="/" className={styles.wordmark} onClick={closeMenu}>
         {site.name}
         <Stop />
-      </Link>
+      </SiteLink>
 
       <div className={styles.desktop}>
         {navLinks.map((link) =>
@@ -44,29 +44,29 @@ export function Header() {
               overviewLabel={link.overviewLabel}
             />
           ) : (
-            <Link
+            <SiteLink
               key={link.href}
               href={link.href}
               className={styles.link}
               aria-current={isCurrent(link.href) ? "page" : undefined}
             >
               {link.label}
-            </Link>
+            </SiteLink>
           ),
         )}
-        <Link href={navCta.href} className={styles.cta}>
+        <SiteLink href={navCta.href} className={styles.cta}>
           {navCta.label}
-        </Link>
+        </SiteLink>
       </div>
 
       <div className={styles.mobile}>
-        <Link
+        <SiteLink
           href={navCta.href}
           className={styles.ctaCompact}
           onClick={closeMenu}
         >
           {navCta.label}
-        </Link>
+        </SiteLink>
         <button
           type="button"
           className={styles.burger}
@@ -97,7 +97,7 @@ export function Header() {
                 onNavigate={closeMenu}
               />
             ) : (
-              <Link
+              <SiteLink
                 key={link.href}
                 href={link.href}
                 className={styles.drawerLink}
@@ -105,7 +105,7 @@ export function Header() {
                 onClick={closeMenu}
               >
                 {link.label}
-              </Link>
+              </SiteLink>
             ),
           )}
         </div>
