@@ -1,6 +1,6 @@
 import { footerBlurb, footerPracticeLinks, site } from "@/data/site";
 import { SiteLink } from "@/components/ui/SiteLink";
-import { Stop } from "@/components/ui/Stop";
+import { Logo } from "@/components/ui/Logo";
 import { Instagram, LinkedIn } from "@/components/ui/icons";
 import styles from "./Footer.module.css";
 
@@ -10,8 +10,7 @@ export function Footer() {
       <div className={styles.grid}>
         <div>
           <div className={styles.wordmark}>
-            {site.name}
-            <Stop />
+            <Logo />
           </div>
           <p className={styles.blurb}>{footerBlurb}</p>
           <div className={styles.status}>

@@ -19,11 +19,12 @@
   gap: clamp(36px, 5vw, 72px);
 }
 
+/* Well above the bar: the column is 260px at its narrowest and the mark is
+   188px wide here, so the room is there — and the ring's strapline only
+   becomes legible rather than merely visible at this size. */
 .wordmark {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 24px;
-  margin-bottom: 18px;
+  --logo-h: 60px;
+  margin-bottom: 22px;
 }
 
 .blurb {
