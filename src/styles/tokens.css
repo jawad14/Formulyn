@@ -70,8 +70,10 @@
   --page-max: 1320px;
   --gutter: clamp(20px, 5vw, 56px);
   --gutter-nav: clamp(16px, 5vw, 56px);
-  /* Height of the sticky header, for offsetting sticky / anchored content. */
-  --nav-h: 67px;
+  /* Height of the sticky header, for offsetting sticky / anchored content.
+     The 42px wordmark is the tallest item in the desktop row, against the
+     bar's 14px of padding either side plus the hairline. */
+  --nav-h: 71px;
 
   /*
    * Room the floating chat launcher occupies in the bottom corner: its own
@@ -99,7 +101,7 @@
 /*
  * The compact bar is still taller than the desktop rail: its row is a 44px
  * touch target (CTA, burger and wordmark alike) against the bar's own 14px of
- * padding either side plus the hairline, so it measures 73px rather than 67px.
+ * padding either side plus the hairline, so it measures 73px rather than 71px.
  * Sticky offsets and scroll-margins keyed to --nav-h land under the bar on
  * every phone otherwise; correct the token itself rather than each consumer.
  */

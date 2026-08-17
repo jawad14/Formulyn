@@ -2,9 +2,9 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { navCta, navLinks, site } from "@/data/site";
+import { navCta, navLinks } from "@/data/site";
 import { SiteLink } from "@/components/ui/SiteLink";
-import { Stop } from "@/components/ui/Stop";
+import { Logo } from "@/components/ui/Logo";
 import { NavAccordion, NavDropdown } from "./NavDropdown";
 import styles from "./Header.module.css";
 
@@ -29,8 +29,7 @@ export function Header() {
   return (
     <nav className={styles.nav}>
       <SiteLink href="/" className={styles.wordmark} onClick={closeMenu}>
-        {site.name}
-        <Stop />
+        <Logo priority />
       </SiteLink>
 
       <div className={styles.desktop}>

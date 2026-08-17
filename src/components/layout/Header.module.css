@@ -16,17 +16,18 @@
   border-bottom: 1px solid var(--line-dark-soft);
 }
 
+/*
+ * Sized so the lettering lands at the optical weight of the text wordmark it
+ * replaces, and so the ring's strapline still reads at a glance. At 42px the
+ * mark is now the tallest thing in the desktop row — taller than the 38px CTA
+ * beside it — so it sets the bar's height: 42px plus the bar's own 14px either
+ * side plus the hairline is the 71px --nav-h carries, and every sticky offset
+ * on the site is keyed to that. Move this and the token moves with it. The
+ * compact bar is unaffected: 42px still sits inside its 44px touch row.
+ */
 .wordmark {
   flex: none;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(19px, 5vw, 22px);
-  color: var(--c-cream);
-  letter-spacing: 0.01em;
-}
-
-.wordmark:hover {
-  color: var(--c-cream);
+  --logo-h: clamp(34px, 8vw, 42px);
 }
 
 /* ---- Desktop rail (>= 1100px) ------------------------------------- */

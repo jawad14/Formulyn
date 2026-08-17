@@ -74,8 +74,13 @@ export const founder = {
   role: "Founder & Chief Formulation Scientist",
   photo: {
     /* Pre-masked to a circle with a transparent surround, so it sits flush
-       inside the round frame in FounderSection. */
-    src: "/founder-romaisa.webp",
+       inside the round frame in FounderSection.
+       The filename carries the year on purpose. Replacing a portrait in place
+       leaves every image cache between here and the browser — Next's
+       optimizer included — free to keep serving the previous one, and those
+       caches key on the URL. Name the next one for its own year rather than
+       overwriting this file. */
+    src: "/founder-romaisa-2026.webp",
     alt: "Romaisa Irfan, Founder and Chief Formulation Scientist at Formulyn",
   },
   bio: "A biochemist with published research credentials and Masters-level R&D expertise spanning nutraceutical, cosmetic, and pharmaceutical formulations.",
